@@ -1,4 +1,25 @@
-> 本地单文件候选改造：B01–B03 `5.0.0`、B04 `6.0.0`。调用方式、已验证范围和依赖锁限制见 [单 Episode 编排](docs/SINGLE_FILE_PROCESSING.md)。下文已发布版本说明保留为历史基线。
+# Stage B 平台算子：单 MCAP 处理候选
+
+本仓库保存 GitLab 平台标准化版本的单 Episode 改造，供个人私有备份和代码审阅。来源与下载归档摘要见 [源码来源记录](docs/validation/single-file-source-snapshot.json)。
+
+| 算子 | 候选版本 | 每次调用 | 输入 → 输出 |
+|---|---|---|---|
+| B01 MCAP 读取 | 5.0.0 | 单条 | 原始 MCAP → `normalized_episode_ref` |
+| B02 全局统计 | 5.0.0 | 整批 | `normalized_episode_refs` 数组 → `statistics_context` |
+| B03 质量检测 | 5.0.0 | 单条 | 单条 `normalized_episode_ref`＋共享 `statistics_context` → `episode_quality_result` |
+| B04 合格 MCAP 交付 | 6.0.0 | 整批 | 完整 `episode_quality_results` 数组 → 合格原件 ZIP |
+
+ABC 的一个 Episode 仍需 MCAP 与同目录、同来源的 Parquet。B03 使用 B02 对完整选定批次生成的统计，清洗规则和固定引擎未修改。
+
+**验证状态：** [31 项业务测试通过](docs/validation/single-file-20261109.json)。依赖锁尚待更新，完整 SDK 入口、注册转换、镜像和真实平台编排尚未验收。本仓库是源码候选，不代表 GitLab 已合入、算子已注册或镜像已发布。
+
+- [调用方式、输入输出与剩余交付步骤](docs/SINGLE_FILE_PROCESSING.md)
+- [本地业务测试入口](tools/run_single_file_business_tests.py)
+- [本次候选版本说明](docs/releases/operators/)
+
+---
+
+以下保留 GitLab 基线的开发指南；其中已发布版本和历史批量字段不代表上表单条候选契约。
 
 # Data Platform Operators · 算子开发指南
 
