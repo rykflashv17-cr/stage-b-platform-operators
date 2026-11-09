@@ -22,10 +22,10 @@ def test_real_container_entry(tmp_path,valid):
     report=json.loads(result['stdout'])
     if valid:
         assert result['exit_code']==0,(report,result['stderr'])
-        assert report['validation']=='passed' and set(report['outputs'])=={'normalized_batch_ref'}
+        assert report['validation']=='passed' and set(report['outputs'])=={'normalized_episode_ref'}
         published=Path(result['workspace'])/'run/published'
         assert (published/'result.json').is_file()
-        assert report['outputs']['normalized_batch_ref']
+        assert report['outputs']['normalized_episode_ref']
     else:
         assert result['exit_code']!=0 and report['validation']=='failed'
         assert not (Path(result['workspace'])/'run/published/result.json').exists()

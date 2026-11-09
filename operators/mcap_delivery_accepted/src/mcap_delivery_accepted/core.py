@@ -1,6 +1,6 @@
 """Select original B01 input references covered by successful quality judgments."""
-from pretraining_data_cleaning_common.handoff import require, validate_source_members, validate_source_ref
-from pretraining_data_cleaning_common.reporting import quality_counts
+from pretrain_cleaning_common.handoff import require, validate_source_members, validate_source_ref
+from pretrain_cleaning_common.reporting import quality_counts
 
 
 def delivery_manifest(selection, records, summary, check_cancelled):

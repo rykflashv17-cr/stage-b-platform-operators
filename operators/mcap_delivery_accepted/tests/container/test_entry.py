@@ -12,9 +12,9 @@ def test_real_container_entry(tmp_path,valid):
     image=os.environ['OPERATOR_TEST_IMAGE']
     job=tmp_path/'job';job.mkdir()
     shutil.copytree(Path(__file__).parent/'fixtures',job/'fixtures')
-    value='/validation/job/fixtures/quality_batch.zip'
+    value=[GUEST+'/fixtures/episode_quality_result.zip']
     (job/'input.json').write_text(json.dumps(value))
-    request={'input_files':{'batch_quality_result':[{'fixture_path':GUEST+'/input.json'}]} if valid else {},
+    request={'input_files':{'episode_quality_results':[{'fixture_path':GUEST+'/input.json'}]} if valid else {},
         'parameter_overrides':{},'workspace':GUEST+'/run',
         'read_roots':[GUEST+'/fixtures'], 'storage_files':{'clean.mcap':GUEST+'/fixtures/clean.mcap'}}
     path=job/'request.json';path.write_text(json.dumps(request))

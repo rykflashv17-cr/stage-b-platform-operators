@@ -1,23 +1,26 @@
 contractVersion: '2'
 code: mcap_stats_global
-operatorVersion: 4.0.1
+operatorVersion: 5.0.0
 name: MCAP 全局统计
-description: 从归一化批次计算全局统计，输出质检所需的统计包。
+description: 汇集逐条归一化结果，拟合整批共享统计并绑定完整成员清单。
 stage: preprocess
 batchMode: all
-image: harbor.striding.internal/data/data-operators/mcap_stats_global:4.0.1
+image: harbor.striding.internal/data/data-operators/mcap_stats_global:5.0.0
 command:
 - python
 - /app/main.py
 inputs:
-- name: normalized_batch_ref
-  description: 归一化批次 ZIP，包含清单、数值文件和原文件摘要
-  kind: ARTIFACT
-  type: string
-  minLength: 1
+- name: normalized_episode_refs
+  description: 本批全部 B01 单条归一化 ZIP；禁止重复来源和逻辑键
+  type: array
+  minItems: 1
+  items:
+    type: string
+    kind: ARTIFACT
+    minLength: 1
 outputs:
 - name: statistics_context
-  description: 统计 ZIP，包含全局统计缓存及计算质检所需的归一化数据
+  description: 整批共享统计 ZIP，含归一化数据、统计缓存和 cohort.json
   kind: ARTIFACT
   type: string
   minLength: 1

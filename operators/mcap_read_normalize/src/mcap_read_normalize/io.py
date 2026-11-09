@@ -2,10 +2,10 @@
 from dataclasses import replace
 from pathlib import Path
 
-from pretraining_data_cleaning_common.artifact import pack_artifact
-from pretraining_data_cleaning_common.contracts import NormalizedRecord, SourceIdentity
-from pretraining_data_cleaning_common.handoff import make_spec, require, save_selection, selection_metadata, validate_source_refs
-from pretraining_data_cleaning_common.storage import save_batch
+from pretrain_cleaning_common.artifact import pack_artifact
+from pretrain_cleaning_common.contracts import NormalizedRecord, SourceIdentity
+from pretrain_cleaning_common.handoff import make_spec, require, save_selection, selection_metadata, validate_source_refs
+from pretrain_cleaning_common.storage import save_batch
 from .raw_files import select_episodes
 
 
@@ -27,9 +27,11 @@ def read_raw_files(ctx, output):
     return spec, refs, metadata
 
 
-def write_normalized_batch_ref(ctx, batch, metadata):
+def write_normalized_episode_ref(ctx, batch, metadata):
     metadata = dict(metadata)
     identities = metadata.pop("_identities")
+    require(len(batch.records) == len(metadata["members"]) == len(identities) == 1,
+            "normalized_episode_ref must contain exactly one episode record")
     portable = []
     for record, member, (original, staged) in zip(batch.records, metadata["members"], identities, strict=True):
         ctx.check_cancelled()
@@ -48,6 +50,11 @@ def write_normalized_batch_ref(ctx, batch, metadata):
     save_batch(replace(batch, manifest_path=temporary))
     temporary.replace(batch.manifest_path)
     save_selection(batch.manifest_path.parent, metadata)
-    artifact = ctx.workspace.path("normalized_batch_ref.zip")
+    artifact = ctx.workspace.path("normalized_episode_ref.zip")
     pack_artifact(artifact, "normalized_batch", batch.manifest_path.parent)
-    ctx.outputs.file("normalized_batch_ref", artifact)
+    ctx.outputs.file("normalized_episode_ref", artifact)
+
+
+# Keep the Python helper import stable for callers that predate the single-
+# episode contract. The submitted output is always normalized_episode_ref.
+write_normalized_batch_ref = write_normalized_episode_ref

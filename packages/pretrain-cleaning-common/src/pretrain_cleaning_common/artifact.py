@@ -11,10 +11,10 @@ _NORMAL = r"(?:manifest\.json|selection\.json|episode_[0-9]{8,}\.npz)"
 _CACHE = r"cache/(?:global_stats\.npz|stage1_global_stats\.npz|state_action_lag\.npz|source_fingerprint\.json)"
 _MEMBERS = {
     "normalized_batch": (_NORMAL, {"manifest.json", "selection.json"}),
-    "statistics_context": (rf"(?:context\.json|normalized/{_NORMAL}|{_CACHE})",
-                           {"context.json", "normalized/manifest.json", "normalized/selection.json"}),
-    "quality_batch": (r"(?:decisions\.jsonl|selection\.json|quality_summary\.json)",
-                      {"decisions.jsonl", "selection.json", "quality_summary.json"}),
+    "statistics_context": (rf"(?:context\.json|cohort\.json|normalized/{_NORMAL}|{_CACHE})",
+                           {"context.json", "cohort.json", "normalized/manifest.json", "normalized/selection.json"}),
+    "quality_batch": (r"(?:decisions\.jsonl|selection\.json|quality_summary\.json|cohort\.json)",
+                      {"decisions.jsonl", "selection.json", "quality_summary.json", "cohort.json"}),
 }
 _FORMAT = "stage_b_mcap_artifact_v1"
 

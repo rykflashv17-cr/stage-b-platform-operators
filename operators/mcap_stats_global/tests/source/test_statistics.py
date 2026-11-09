@@ -3,8 +3,8 @@ from types import SimpleNamespace
 import json
 
 from mcap_stats_global.core import GlobalStatsOperator
-from pretraining_data_cleaning_common.contracts import McapEpisodeRef, NormalizedBatchRef, NormalizedRecord
-from pretraining_data_cleaning_common.handoff import make_spec
+from pretrain_cleaning_common.contracts import McapEpisodeRef, NormalizedBatchRef, NormalizedRecord
+from pretrain_cleaning_common.handoff import make_spec
 
 
 def test_input_rejection_is_retained_without_fitting(tmp_path):

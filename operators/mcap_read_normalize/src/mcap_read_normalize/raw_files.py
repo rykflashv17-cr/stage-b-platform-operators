@@ -4,8 +4,8 @@ from dataclasses import dataclass
 import hashlib
 from pathlib import Path
 
-from pretraining_data_cleaning_common.contracts import McapEpisodeRef, SourceIdentity
-from pretraining_data_cleaning_common.handoff import require
+from pretrain_cleaning_common.contracts import McapEpisodeRef, SourceIdentity
+from pretrain_cleaning_common.handoff import require
 
 
 @dataclass(frozen=True)
@@ -84,6 +84,19 @@ def _stage(ctx, entry, key):
 def select_episodes(ctx):
     pipeline = ctx.execution.get("mode") == "pipeline"
     keys = _keys(ctx.inputs.value("raw_files"), pipeline)
+    source = ctx.parameters["source"]
+    require(source in {"abc_130k", "jindian_marvin"}, "unknown source profile")
+    abc = source == "abc_130k"
+    # Reject multiple episodes from logical keys before accessing materialized
+    # files or copying their bytes into this invocation's workspace.
+    if abc:
+        require(len(keys) == 2, "ABC B01 requires exactly one episode: one MCAP and one eef_pose.parquet")
+        require({key.name for key in keys} == {"episode.mcap", "eef_pose.parquet"}
+                and keys[0].parent == keys[1].parent,
+                "ABC B01 requires episode.mcap and eef_pose.parquet in the same logical directory")
+    else:
+        require(len(keys) == 1 and keys[0].suffix == ".mcap",
+                "Marvin B01 requires exactly one MCAP per invocation")
     paths = ctx.inputs.files("raw_files")
     origins = ctx.inputs.file_origins("raw_files")
     entries = [RawFile(key, Path(path), origin, index)
@@ -99,9 +112,6 @@ def select_episodes(ctx):
         require(identity not in seen, "duplicate materialized raw file")
         seen.add(identity)
 
-    source = ctx.parameters["source"]
-    require(source in {"abc_130k", "jindian_marvin"}, "unknown source profile")
-    abc = source == "abc_130k"
     logical = {e.index: _logical_key(ctx, e) for e in entries}
     counts = Counter(logical.values())
     # Distinct absolute fixtures can have identical root-relative names. Only
@@ -117,6 +127,7 @@ def select_episodes(ctx):
         require(key not in files, "ambiguous or duplicate raw file key")
         files[key] = entry
     primary = _episodes(files, abc, logical)
+    require(len(primary) == 1, "B01 requires exactly one episode per invocation")
     staged = {key: _stage(ctx, entry, key) for key, entry in files.items()}
     root = ctx.workspace.path("raw-input")
     refs, source_refs, identities = [], [], []

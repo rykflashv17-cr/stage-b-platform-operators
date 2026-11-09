@@ -4,7 +4,7 @@ import json
 from pathlib import PurePosixPath
 from zipfile import ZipFile, ZipInfo, ZIP_STORED
 
-from pretraining_data_cleaning_common.handoff import require
+from pretrain_cleaning_common.handoff import require
 
 
 def _chunks(stream, check):

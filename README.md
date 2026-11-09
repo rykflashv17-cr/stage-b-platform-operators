@@ -1,3 +1,5 @@
+> 本地单文件候选改造：B01–B03 `5.0.0`、B04 `6.0.0`。调用方式、已验证范围和依赖锁限制见 [单 Episode 编排](docs/SINGLE_FILE_PROCESSING.md)。下文已发布版本说明保留为历史基线。
+
 # Data Platform Operators · 算子开发指南
 
 本仓库按算子编码维护当前版本的声明、实现与验收样例；历史版本通过精确镜像、Git 标签和发布记录追溯。开发者使用下面的流程。AI 从 [AGENTS.md](AGENTS.md) 开始。共同遵循[算子开发与注册规范](CONTRACT.md)。

@@ -1,4 +1,4 @@
-"""B04 5.0.0 acceptance through the real SDK image-fixed entrypoint."""
+"""B04 6.0.0 acceptance through the real SDK image-fixed entrypoint."""
 import hashlib
 import json
 import os
@@ -8,39 +8,20 @@ import sys
 from zipfile import ZipFile
 
 import pytest
+from tests.support.single_file_quality import delivery_fixture
 
 PROJECT=Path(os.environ.get('OPERATOR_TEST_PROJECT',Path(__file__).resolve().parents[2]))
 
 
 def invocation(tmp_path, statuses=('kept','rejected'), *, change_raw=False, diagnostic=False):
-    from pretraining_data_cleaning_common.artifact import pack_artifact
-    from pretraining_data_cleaning_common.reporting import quality_counts
-    raw=tmp_path/'raw'
-    raw.mkdir()
-    payload=tmp_path/'quality'
-    payload.mkdir()
-    records=[]
-    members=[]
-    mapping={}
-    for index,status in enumerate(statuses):
-        key=f'capture/e{index}/episode.mcap'
-        path=raw/f'{index}.mcap'
-        path.write_bytes(f'original-{index}'.encode())
-        source={'attempt_id':'00000000-0000-4000-8000-000000000001','input_name':'raw_files','input_index':index,'logical_key':key,'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
-        member={'episode_index':index,'source_ref':source}
-        members.append(member)
-        records.append({**member,'source':key,'status':status,'reject_file':status=='rejected','diagnostic_errors':{'stage':'broken'} if diagnostic else {}})
-        mapping[key]=str(path)
-    (payload/'selection.json').write_text(json.dumps({'source':'jindian_marvin','members':members}))
-    (payload/'decisions.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in records))
-    (payload/'quality_summary.json').write_text(json.dumps({'statistics_status':'ready',**quality_counts(records)}))
-    quality=tmp_path/'quality.zip'
-    pack_artifact(quality,'quality_batch',payload)
-    if change_raw:(raw/'0.mcap').write_bytes(b'changed')
+    prepared=delivery_fixture(tmp_path,statuses,diagnostic=diagnostic)
+    if change_raw:prepared.raw_files['capture/e0/episode.mcap'].write_bytes(b'changed')
     fixture=tmp_path/'quality-input.json'
-    fixture.write_text(json.dumps(str(quality)))
+    fixture.write_text(json.dumps([str(path) for path in prepared.quality_files]))
     request=tmp_path/'request.json'
-    request.write_text(json.dumps({'input_files':{'batch_quality_result':[{'fixture_path':str(fixture)}]},'workspace':str(tmp_path/'execution'),'read_roots':[str(tmp_path)],'storage_files':mapping}))
+    request.write_text(json.dumps({'input_files':{'episode_quality_results':[{'fixture_path':str(fixture)}]},
+        'workspace':str(tmp_path/'execution'),'read_roots':[str(tmp_path)],
+        'storage_files':{key:str(path) for key,path in prepared.raw_files.items()}}))
     env={**os.environ,'PYTHONDONTWRITEBYTECODE':'1'}
     python=sys.executable
     result=subprocess.run([str(python),str(PROJECT/'main.py'),'--local-request-file',str(request)],env=env,capture_output=True,text=True,timeout=30)
@@ -48,7 +29,7 @@ def invocation(tmp_path, statuses=('kept','rejected'), *, change_raw=False, diag
 
 
 @pytest.mark.parametrize('statuses',[('kept','kept'),('kept','rejected'),('rejected','rejected')])
-def test_v5_real_entrypoint_publishes_exact_kept_originals(tmp_path,statuses):
+def test_v6_real_entrypoint_publishes_exact_kept_originals(tmp_path,statuses):
     result,path=invocation(tmp_path,statuses)
     assert result.returncode==0,(result.stdout,result.stderr)
     report=json.loads(result.stdout)
@@ -68,7 +49,7 @@ def test_v5_real_entrypoint_publishes_exact_kept_originals(tmp_path,statuses):
 
 
 @pytest.mark.parametrize('kwargs',[{'change_raw':True},{'diagnostic':True}])
-def test_v5_failure_never_publishes_success(tmp_path,kwargs):
+def test_v6_failure_never_publishes_success(tmp_path,kwargs):
     result,_=invocation(tmp_path,**kwargs)
     assert result.returncode!=0
     report=json.loads(result.stdout)

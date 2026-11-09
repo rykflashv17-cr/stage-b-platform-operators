@@ -4,8 +4,8 @@ version = "0.1.0.dev0"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "striding-operator-sdk==0.3.0.dev9",
-    "striding-pretraining-data-cleaning-engine==0.1.0",
-    "striding-pretraining-data-cleaning-common==0.4.3",
+    "pretrain-cleaning-engine==0.1.0",
+    "pretrain-cleaning-common==0.5.0",
 ]
 
 [tool.uv]
@@ -14,7 +14,7 @@ package = false
 # The archived engine wheel also exposes this upstream module through its
 # packaged import root. Keep ownership explicit after removing its source copy.
 [tool.operator-ci.external-imports]
-robot_data_processing = "striding-pretraining-data-cleaning-engine"
+robot_data_processing = "pretrain-cleaning-engine"
 
 [dependency-groups]
 dev = ["pytest==8.4.2", "packaging==26.3"]
@@ -27,8 +27,8 @@ norecursedirs = ["fixtures", ".venv", ".venv-*", "_vendor"]
 
 [tool.uv.sources]
 striding-operator-sdk = { path = "build/wheels/striding_operator_sdk-0.3.0.dev9-py3-none-any.whl" }
-striding-pretraining-data-cleaning-engine = { path = "build/wheels/striding_pretraining_data_cleaning_engine-0.1.0-py3-none-any.whl" }
-striding-pretraining-data-cleaning-common = { path = "build/wheels/striding_pretraining_data_cleaning_common-0.4.3-py3-none-any.whl" }
+pretrain-cleaning-engine = { path = "build/wheels/pretrain_cleaning_engine-0.1.0-py3-none-any.whl" }
+pretrain-cleaning-common = { path = "build/wheels/pretrain_cleaning_common-0.5.0-py3-none-any.whl" }
 
 [[tool.uv.index]]
 name = "nexus"

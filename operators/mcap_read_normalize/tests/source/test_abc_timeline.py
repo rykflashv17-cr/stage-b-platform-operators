@@ -5,10 +5,10 @@ from tests.support.pretraining_samples import write_abc
 
 @pytest.mark.parametrize("period,stride",[(33333333,1),(16666667,2)])
 def test_abc_exact_source_timeline_follows_adapter_rows(tmp_path,period,stride):
-    from pretraining_data_cleaning_common.handoff import make_spec
-    from pretraining_data_cleaning_common.spec import quality_config
-    from pretraining_data_cleaning_common.contracts import McapEpisodeRef
-    from pretraining_data_cleaning_common.storage import load_episode
+    from pretrain_cleaning_common.handoff import make_spec
+    from pretrain_cleaning_common.spec import quality_config
+    from pretrain_cleaning_common.contracts import McapEpisodeRef
+    from pretrain_cleaning_common.storage import load_episode
     from mcap_read_normalize.core import McapReadOperator
     from mcap_read_normalize.source_adapters import build_adapter
     root=tmp_path / "source"
@@ -23,7 +23,7 @@ def test_abc_exact_source_timeline_follows_adapter_rows(tmp_path,period,stride):
     assert (source.read_bytes(),sidecar.read_bytes())==before
 
 def test_abc_timeline_is_filtered_with_episode_rows(tmp_path):
-    from pretraining_data_cleaning_common.handoff import make_spec
+    from pretrain_cleaning_common.handoff import make_spec
     from mcap_read_normalize.source_adapters import build_adapter
     from robot_data_processing.normalize.standard_types import EpisodeRef
     root=tmp_path / "source";source,sidecar,times=write_abc(root)

@@ -12,9 +12,12 @@ def test_real_container_entry(tmp_path,valid):
     image=os.environ['OPERATOR_TEST_IMAGE']
     job=tmp_path/'job';job.mkdir()
     shutil.copytree(Path(__file__).parent/'fixtures',job/'fixtures')
-    value='/validation/job/fixtures/statistics_context.zip'
-    (job/'input.json').write_text(json.dumps(value))
-    request={'input_files':{'statistics_context':[{'fixture_path':GUEST+'/input.json'}]} if valid else {},
+    (job/'episode-input.json').write_text(json.dumps(GUEST+'/fixtures/normalized_episode_ref.zip'))
+    (job/'statistics-input.json').write_text(json.dumps(GUEST+'/fixtures/statistics_context.zip'))
+    request={'input_files':{
+        'normalized_episode_ref':[{'fixture_path':GUEST+'/episode-input.json'}],
+        'statistics_context':[{'fixture_path':GUEST+'/statistics-input.json'}],
+        } if valid else {},
         'parameter_overrides':{'source':'jindian_marvin','workers':1},'workspace':GUEST+'/run',
         'read_roots':[GUEST+'/fixtures'], }
     path=job/'request.json';path.write_text(json.dumps(request))
@@ -22,7 +25,7 @@ def test_real_container_entry(tmp_path,valid):
     report=json.loads(result['stdout'])
     if valid:
         assert result['exit_code']==0,(report,result['stderr'])
-        assert report['validation']=='passed' and set(report['outputs'])=={'batch_quality_result'}
+        assert report['validation']=='passed' and set(report['outputs'])=={'episode_quality_result'}
         published=Path(result['workspace'])/'run/published'
         assert (published/'result.json').is_file()
         assert json.loads((published/'quality.json').read_text())['summary']['passed']==1

@@ -19,26 +19,26 @@ from pathlib import Path
 import numpy as np
 
 
-from pretraining_data_cleaning_common.contracts import (
+from pretrain_cleaning_common.contracts import (
     McapEpisodeRef, QualityDecision, NormalizedEpisode, SourceIdentity,
     StatisticsBundle, StatisticsContext, NormalizedBatchRef, NormalizedRecord, frame_ranges, quality_timeline,
 )
 
 
-from pretraining_data_cleaning_common.spec import McapSpec, setup_imports
+from pretrain_cleaning_common.spec import McapSpec, setup_imports
 from .source_adapters import build_adapter
 
 
-from pretraining_data_cleaning_common.storage import save_episode, load_episode, save_batch
+from pretrain_cleaning_common.storage import save_episode, load_episode, save_batch
 
 
-from pretraining_data_cleaning_common.measurement import coverage_policy, measurement_distances
+from pretrain_cleaning_common.measurement import coverage_policy, measurement_distances
 
 
-from pretraining_data_cleaning_common.filesystem import capture_source_identity, write_json_durable
+from pretrain_cleaning_common.filesystem import capture_source_identity, write_json_durable
 
 
-from pretraining_data_cleaning_common.reporting import error_record, json_safe, finish_quality
+from pretrain_cleaning_common.reporting import error_record, json_safe, finish_quality
 
 
 from .integrity import validate_mcap

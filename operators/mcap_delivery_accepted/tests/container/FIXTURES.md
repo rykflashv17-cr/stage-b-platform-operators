@@ -1,10 +1,13 @@
 # 固定容器样例
 
-来自 `tests/pipelines/pretraining_data_cleaning` 的合成 Marvin 样例及已验收链路输出；不包含采集业务数据。作为独立版本的固定输入，测试时不调用上游算子生成。
+使用合成 Marvin `clean.mcap`，由当前 B01 5.0.0 → B02 5.0.0 → B03 5.0.0 真实业务函数生成；不包含采集业务数据。
+统计与质量 ZIP 绑定同一完整 cohort，质量摘要同时绑定 B02 `context.json` 摘要。
+每个容器测试只读取这里的固定输入，不会临时调用上游算子。
+已验证真实 MCAP 解码、统计拟合、质量通过及交付原件字节一致；SDK 入口和容器运行仍需单独验收。
 
 ```json
 {
-  "quality_batch.zip": "5b087e28775d0bd2f7a3ad5c4c5b50e9ad0cd3041baec1fe6cffbe0fbdc2e171",
-  "clean.mcap": "7aadf41327f2732f08c3ca821002dcef91ba6d476c2cd56cbddce5f434567ae0"
+  "clean.mcap": "7aadf41327f2732f08c3ca821002dcef91ba6d476c2cd56cbddce5f434567ae0",
+  "episode_quality_result.zip": "fc7656a68ff70b6a0fbc3003caefd26993712cdda82a3a8fc506a8c83f6d26c8"
 }
 ```

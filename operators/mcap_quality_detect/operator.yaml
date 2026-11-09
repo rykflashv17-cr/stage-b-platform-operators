@@ -1,23 +1,28 @@
 contractVersion: '2'
 code: mcap_quality_detect
-operatorVersion: 4.0.1
+operatorVersion: 5.0.0
 name: MCAP 质量检测
-description: 读取统计包，生成逐项判定及来源信息，并提交标准质检报告。
+description: 依据共享全局统计，每次检测一条 MCAP，输出单条判定与标准质检报告。
 stage: quality
-batchMode: all
-image: harbor.striding.internal/data/data-operators/mcap_quality_detect:4.0.1
+batchMode: none
+image: harbor.striding.internal/data/data-operators/mcap_quality_detect:5.0.0
 command:
 - python
 - /app/main.py
 inputs:
+- name: normalized_episode_ref
+  description: 当前待检测记录的 B01 单条归一化 ZIP
+  kind: ARTIFACT
+  type: string
+  minLength: 1
 - name: statistics_context
-  description: 统计 ZIP，包含全局统计缓存及计算质检所需的归一化数据
+  description: 该记录所属完整批次的 B02 共享统计 ZIP
   kind: ARTIFACT
   type: string
   minLength: 1
 outputs:
-- name: batch_quality_result
-  description: 质检结果 ZIP，包含判定、来源映射及质检摘要
+- name: episode_quality_result
+  description: 单条检测 ZIP，含判定、来源、摘要和完整批次归属清单
   kind: ARTIFACT
   type: string
   minLength: 1

@@ -1,6 +1,6 @@
 [project]
 name = "pretrain-cleaning-common"
-version = "0.4.3"
+version = "0.5.0"
 requires-python = ">=3.12,<3.13"
 dependencies = ["striding-operator-sdk==0.3.0.dev9", "pretrain-cleaning-engine==0.1.0"]
 

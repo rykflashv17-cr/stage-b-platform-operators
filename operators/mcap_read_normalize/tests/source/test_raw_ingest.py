@@ -5,7 +5,7 @@ from types import SimpleNamespace
 import pytest
 
 from mcap_read_normalize.io import read_raw_files, write_normalized_batch_ref
-from pretraining_data_cleaning_common.contracts import NormalizedBatchRef, NormalizedRecord, SourceIdentity
+from pretrain_cleaning_common.contracts import NormalizedBatchRef, NormalizedRecord, SourceIdentity
 
 
 ATTEMPT = "d7d0c6d1-9890-4783-be57-21d08a6b3e78"
@@ -56,27 +56,27 @@ def downloaded(root, keys):
 
 
 @pytest.mark.parametrize("mode", ["pipeline", "local"])
-def test_abc_pairs_by_original_directory_and_keeps_stable_selection(tmp_path, mode):
-    dirs = ["data/train/pick/episode_009", "data/test/put/episode_002"]
-    keys = [dirs[1]+"/eef_pose.parquet", dirs[0]+"/episode.mcap",
-            dirs[1]+"/episode.mcap", dirs[0]+"/eef_pose.parquet"]
+@pytest.mark.parametrize("directory,part,task", [
+    ("data/train/pick/episode_009", "train", "pick"),
+    ("data/test/put/episode_002", "test", "put"),
+])
+def test_abc_pairs_by_original_directory_and_keeps_stable_selection(tmp_path, mode, directory, part, task):
+    keys = [directory + "/eef_pose.parquet", directory + "/episode.mcap"]
     entries = downloaded(tmp_path / "downloads", keys)
     public = []
     for i, rows in enumerate([entries, entries[::-1]]):
         ctx = context(tmp_path / str(i), rows, mode=mode)
         _, refs, metadata = read_raw_files(ctx, ctx.workspace.path("normalization"))
-        assert [(r.episode_index, r.rel_path, r.part, r.task) for r in refs] == [
-            (0, dirs[1], "test", "put"), (1, dirs[0], "train", "pick")]
-        for ref in refs:
-            assert ref.mcap_path.read_text() == ref.rel_path + "/episode.mcap"
-            assert ref.mcap_path.with_name("eef_pose.parquet").read_text() == ref.rel_path + "/eef_pose.parquet"
+        ref, = refs
+        assert (ref.episode_index, ref.rel_path, ref.part, ref.task) == (0, directory, part, task)
+        assert ref.mcap_path.read_text() == directory + "/episode.mcap"
+        assert ref.mcap_path.with_name("eef_pose.parquet").read_text() == directory + "/eef_pose.parquet"
         public.append(metadata["business_refs"])
-        for member, ref in zip(metadata["members"], refs, strict=True):
-            slot = next(j for j, row in enumerate(rows) if row[0] == ref.rel_path+"/episode.mcap")
-            assert member["source_ref"]["input_index"] == slot
-        for ref, business in zip(refs, metadata["business_refs"], strict=True):
-            assert business["dataset_root"] == "raw"
-            assert business["mcap_path"] == "raw/" + ref.rel_path + "/episode.mcap"
+        member, = metadata["members"]
+        slot = next(j for j, row in enumerate(rows) if row[0] == directory + "/episode.mcap")
+        assert member["source_ref"]["input_index"] == slot
+        assert metadata["business_refs"][0]["dataset_root"] == "raw"
+        assert metadata["business_refs"][0]["mcap_path"] == "raw/" + directory + "/episode.mcap"
     assert public[0] == public[1]
 
 
@@ -118,14 +118,18 @@ def test_local_selection_preserves_authorized_sources_and_inferred_metadata(tmp_
     first.touch()
     second.touch()
     entries = [("pick/two.mcap", second, "root"), (str(first), first, "root")]
-    ctx = context(tmp_path / "work", entries, source="jindian_marvin", mode="local", roots=[root])
-    _, refs, metadata = read_raw_files(ctx, ctx.workspace.path("normalization"))
-    assert [(r.mcap_path.relative_to(ctx.workspace.path("raw-input")), r.task, r.rel_path) for r in refs] == [
-        (Path("one.mcap"), "", "one.mcap"), (Path("pick/two.mcap"), "pick", "pick/two.mcap")]
-    assert [m["source_ref"]["logical_key"] for m in metadata["members"]] == ["one.mcap", "pick/two.mcap"]
-    # Selecting the very same file twice by absolute and relative name is invalid.
+    for index, entry in enumerate(entries):
+        ctx = context(tmp_path / f"work-{index}", [entry], source="jindian_marvin", mode="local", roots=[root])
+        _, refs, metadata = read_raw_files(ctx, ctx.workspace.path("normalization"))
+        ref, = refs
+        logical = entry[1].relative_to(root)
+        assert ref.episode_index == 0
+        assert ref.mcap_path.relative_to(ctx.workspace.path("raw-input")) == logical
+        assert ref.rel_path == logical.as_posix()
+        assert metadata["members"][0]["source_ref"]["logical_key"] == logical.as_posix()
+    # Multiple selected files, including aliases of the same file, are invalid.
     ctx.inputs.entries.append((str(second), second, "root"))
-    with pytest.raises(ValueError, match="duplicate"):
+    with pytest.raises(ValueError, match="exactly one MCAP"):
         read_raw_files(ctx, ctx.workspace.path("normalization"))
 
 
@@ -140,6 +144,7 @@ def test_forwarded_root_level_marvin_keeps_only_selected_bytes_and_digest(tmp_pa
     written = {}
     ctx.outputs = SimpleNamespace(file=lambda name, path: written.update(name=name, path=path))
     write_normalized_batch_ref(ctx, batch, metadata)
+    assert written["name"] == "normalized_episode_ref"
     from zipfile import ZipFile
     import json
     with ZipFile(written["path"]) as archive:
@@ -154,18 +159,16 @@ def test_forwarded_root_level_marvin_keeps_only_selected_bytes_and_digest(tmp_pa
     }
 
 
-def test_distinct_absolute_inputs_keep_their_full_names_across_granted_roots(tmp_path):
+def test_distinct_absolute_inputs_across_granted_roots_are_multiple_episodes(tmp_path):
     paths = [tmp_path / part / "same.mcap" for part in ["b", "a"]]
     for path in paths:
         path.parent.mkdir()
         path.touch()
     rows = [(str(path), path, path.parent.name) for path in paths]
     ctx = context(tmp_path / "work", rows, source="jindian_marvin", mode="local", roots=[p.parent for p in paths])
-    _, refs, metadata = read_raw_files(ctx, ctx.workspace.path("normalization"))
-    assert len({ref.mcap_path for ref in refs}) == 2
-    assert [m["source_ref"]["logical_key"] for m in metadata["members"]] == ["same.mcap", "same.mcap"]
-    assert [m["source_ref"]["input_index"] for m in metadata["members"]] == [1, 0]
-
+    with pytest.raises(ValueError, match="exactly one MCAP"):
+        read_raw_files(ctx, ctx.workspace.path("normalization"))
+    assert not (tmp_path / "work" / "raw-input").exists()
 
 
 def test_absolute_nested_single_file_uses_granted_root_and_isolates_bytes(tmp_path):

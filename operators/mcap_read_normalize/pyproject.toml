@@ -1,8 +1,8 @@
 [project]
 name = "striding-operator-mcap-read-normalize"
-version = "4.0.1"
+version = "5.0.0"
 requires-python = ">=3.12,<3.13"
-dependencies = ["striding-operator-sdk==0.3.0.dev7", "striding-pretraining-data-cleaning-common==0.4.2", "striding-pretraining-data-cleaning-engine==0.1.0"]
+dependencies = ["striding-operator-sdk==0.3.0.dev9", "pretrain-cleaning-common==0.5.0", "pretrain-cleaning-engine==0.1.0"]
 
 [build-system]
 requires = ["hatchling==1.27.0"]
@@ -15,9 +15,9 @@ packages = ["src/mcap_read_normalize"]
 dev = ["pytest==8.4.2"]
 
 [tool.uv.sources]
-striding-operator-sdk = { path = "../../build/wheels/striding_operator_sdk-0.3.0.dev7-py3-none-any.whl" }
-striding-pretraining-data-cleaning-common = { path = "../../build/wheels/striding_pretraining_data_cleaning_common-0.4.2-py3-none-any.whl" }
-striding-pretraining-data-cleaning-engine = { path = "../../build/wheels/striding_pretraining_data_cleaning_engine-0.1.0-py3-none-any.whl" }
+striding-operator-sdk = { path = "../../build/wheels/striding_operator_sdk-0.3.0.dev9-py3-none-any.whl" }
+pretrain-cleaning-common = { path = "../../build/wheels/pretrain_cleaning_common-0.5.0-py3-none-any.whl" }
+pretrain-cleaning-engine = { path = "../../build/wheels/pretrain_cleaning_engine-0.1.0-py3-none-any.whl" }
 
 [[tool.uv.index]]
 name = "nexus"

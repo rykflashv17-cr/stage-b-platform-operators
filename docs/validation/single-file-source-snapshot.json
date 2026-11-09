@@ -1,0 +1,9 @@
+{
+  "repository": "https://gitlab.striding.internal/stridingai/data/data-platform-operators",
+  "ref": "develop",
+  "retrieval": "GitLab authenticated browser Download source code",
+  "archive_sha256": "7b7165b6911b2bedcce599c8246a8ef81461830c47c18564b72eae9d33ce4cc5",
+  "local_baseline_commit": "bc0ddfd (local snapshot import; not a GitLab commit)",
+  "sdk_source_ref": "develop",
+  "sdk_archive_sha256": "7d55cb26a31e0db00b0ddf8a8ecb09334d8276ffb9175c6558d9a87d81a2200f"
+}

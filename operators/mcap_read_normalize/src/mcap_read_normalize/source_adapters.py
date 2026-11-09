@@ -1,6 +1,6 @@
 """Fixed source adapters; ABC adds exact timeline propagation to the pinned source."""
 from pathlib import Path
-from pretraining_data_cleaning_common.spec import build_adapter as upstream_adapter, setup_imports, configure_source_environment, _load_module
+from pretrain_cleaning_common.spec import build_adapter as upstream_adapter, setup_imports, configure_source_environment, _load_module
 
 def build_adapter(spec):
     if spec.package_dir.name != "abc_130k":

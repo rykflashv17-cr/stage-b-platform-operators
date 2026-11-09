@@ -236,8 +236,7 @@ def validate_source_ref(ref):
 
 def validate_source_members(source, members, *, check_cancelled=None):
     require(source in PROFILES and isinstance(members, list) and members, "invalid source selection")
-    slot_count = len(members) * (2 if source == "abc_130k" else 1)
-    attempts, indexes, by_episode = set(), set(), {}
+    indexes, by_episode, attempt_counts = set(), {}, {}
     for member in members:
         if check_cancelled is not None:
             check_cancelled()
@@ -245,12 +244,14 @@ def validate_source_members(source, members, *, check_cancelled=None):
         require(type(index) is int and index >= 0 and index not in by_episode, "invalid selected episode identity")
         ref = validate_source_ref(member["source_ref"])
         require(source != "abc_130k" or Path(ref["logical_key"]).name == "episode.mcap", "invalid ABC source key")
-        slot = ref["input_index"]
-        require(slot < slot_count and slot not in indexes, "duplicate or out-of-range frozen input slot")
-        attempts.add(ref["attempt_id"])
+        slot = (ref["attempt_id"], ref["input_index"])
+        require(slot not in indexes, "duplicate frozen input slot")
         indexes.add(slot)
+        attempt_counts[ref["attempt_id"]] = attempt_counts.get(ref["attempt_id"], 0) + 1
         by_episode[index] = ref
-    require(len(attempts) == 1, "selection contains multiple B01 attempts")
+    for ref in by_episode.values():
+        slot_count = attempt_counts[ref["attempt_id"]] * (2 if source == "abc_130k" else 1)
+        require(ref["input_index"] < slot_count, "out-of-range frozen input slot")
     return by_episode
 
 
