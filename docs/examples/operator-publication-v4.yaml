@@ -1,0 +1,39 @@
+# Format example only: commits and digests are placeholders.
+schemaVersion: 4
+producer: operators
+releaseLine: main
+sourceRepository: data-platform-operators
+sourceBranch: main
+sourceCommit: cccccccccccccccccccccccccccccccccccccccc
+pipeline:
+  projectId: '395'
+  pipelineId: '12345'
+  pipelineUrl: https://gitlab.striding.internal/stridingai/data/data-platform-operators/-/pipelines/12345
+parentPublication:
+  artifactDigest: null
+  sourceCommit: null
+components:
+- code: mcap_delivery_accepted
+  buildVersion: 4.0.1
+  sourceCommit: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  digest: sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  operatorYaml:
+    repository: 192.168.121.144/data/data-operators/definitions/mcap_delivery_accepted
+    digest: sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+  repositories:
+    local-harbor:
+      role: canonical
+      repository: harbor.striding.internal/data/data-operators/mcap_delivery_accepted
+      verifiedAt: '2026-11-06T00:00:00Z'
+- code: mcap_delivery_accepted
+  buildVersion: 5.0.0
+  sourceCommit: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+  digest: sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+  operatorYaml:
+    repository: 192.168.121.144/data/data-operators/definitions/mcap_delivery_accepted
+    digest: sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+  repositories:
+    local-harbor:
+      role: canonical
+      repository: harbor.striding.internal/data/data-operators/mcap_delivery_accepted
+      verifiedAt: '2026-11-06T00:00:00Z'

@@ -1,0 +1,156 @@
+{
+  "scope": "Nexus SDK consumption, editable local development and Harbor CI",
+  "operator_base": "e0d28020d1ef56885ce1c3b44e7f8577d077ee87",
+  "sdk_version": "0.3.0.dev1",
+  "wheel_sha256": {
+    "example_quality_gate-1.0.0-py3-none-any.whl": "731b5f512cb777d3a3f884b99abe035e09a470709597c7fc80358cb9146d2af8",
+    "striding_operator_mcap_delivery_accepted-2.0.0-py3-none-any.whl": "7ae3f8dc8065e7f626343d088070751c670f6609b7c073aedb6d15985e48b9ab",
+    "striding_operator_mcap_quality_detect-2.0.0-py3-none-any.whl": "90633a61b3dedc647c362b2f344791b792a3e55412548083649444aa15ab4871",
+    "striding_operator_mcap_read_normalize-2.0.0-py3-none-any.whl": "989b42a598b7e3dd208a77d016af551517fe88b4a32d25953a98864818ec4170",
+    "striding_operator_mcap_stats_global-2.0.0-py3-none-any.whl": "daff99d97ad074529e2137eac0325d1375903887015e6838d8737b964438b2c9",
+    "striding_operator_sdk-0.3.0.dev1-py3-none-any.whl": "82efcb39c043623e24ff868f825bc234fcbe0bf188ea68839f0d381f724947cd",
+    "striding_stage_b_mcap_common-0.2.0-py3-none-any.whl": "a8c91c98e6cccd3c904d671b3fb7d2f5d1dcc7941d730d3c6ae36caba6a1a071",
+    "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl": "479a96fe93761052c8ca0d3fc063fb5d8b74f40ecd75bd334118431b9acb6be9"
+  },
+  "checks": {
+    "sdk_installed_wheel_tests": 142,
+    "operator_tests": 56,
+    "installed_entrypoint_tests": 21,
+    "valid_examples": 30,
+    "local_cold_pip_download_and_cache_hit": true,
+    "editable_operator_and_sdk_override_restore": true,
+    "gitlab_ci_lint": [
+      "data-platform-operators",
+      "data-platform-sdk"
+    ]
+  },
+  "container_image_ids": {
+    "mcap_delivery_accepted": "sha256:02e117fe3d576e82fdc660ee24d434ac012abecb256e60761fcb864b5621b6eb",
+    "mcap_quality_detect": "sha256:0f780531725c199eece3362b8f289567618810724741bdf29ab85f1e7497c4ea",
+    "mcap_read_normalize": "sha256:5a25fbdf29c1ea117c4c252b19af36ab97dc8f66829bf0af511d14946391e269",
+    "mcap_stats_global": "sha256:2bb5a5582a07c9d039554844651ab6c208602eca18eef0ef1695ebd71872586f"
+  },
+  "cases": {
+    "marvin": {
+      "steps": [
+        {
+          "code": "mcap_read_normalize",
+          "exit_code": 0,
+          "validation": "passed"
+        },
+        {
+          "code": "mcap_stats_global",
+          "exit_code": 0,
+          "validation": "passed"
+        },
+        {
+          "code": "mcap_quality_detect",
+          "exit_code": 0,
+          "validation": "passed"
+        },
+        {
+          "code": "mcap_delivery_accepted",
+          "exit_code": 0,
+          "validation": "passed"
+        }
+      ],
+      "sources_unchanged": true
+    },
+    "gaps": {
+      "steps": [
+        {
+          "code": "mcap_read_normalize",
+          "exit_code": 0,
+          "validation": "passed"
+        },
+        {
+          "code": "mcap_stats_global",
+          "exit_code": 0,
+          "validation": "passed"
+        },
+        {
+          "code": "mcap_quality_detect",
+          "exit_code": 0,
+          "validation": "passed"
+        },
+        {
+          "code": "mcap_delivery_accepted",
+          "exit_code": 0,
+          "validation": "passed"
+        }
+      ],
+      "sources_unchanged": true
+    },
+    "abc": {
+      "steps": [
+        {
+          "code": "mcap_read_normalize",
+          "exit_code": 0,
+          "validation": "passed"
+        },
+        {
+          "code": "mcap_stats_global",
+          "exit_code": 0,
+          "validation": "passed"
+        },
+        {
+          "code": "mcap_quality_detect",
+          "exit_code": 0,
+          "validation": "passed"
+        },
+        {
+          "code": "mcap_delivery_accepted",
+          "exit_code": 0,
+          "validation": "passed"
+        }
+      ],
+      "sources_unchanged": true
+    },
+    "empty": {
+      "steps": [
+        {
+          "code": "mcap_read_normalize",
+          "exit_code": 0,
+          "validation": "passed"
+        },
+        {
+          "code": "mcap_stats_global",
+          "exit_code": 0,
+          "validation": "passed"
+        },
+        {
+          "code": "mcap_quality_detect",
+          "exit_code": 0,
+          "validation": "passed"
+        },
+        {
+          "code": "mcap_delivery_accepted",
+          "exit_code": 0,
+          "validation": "passed"
+        }
+      ],
+      "sources_unchanged": true
+    },
+    "input_error": {
+      "steps": [
+        {
+          "code": "mcap_read_normalize",
+          "exit_code": 0,
+          "validation": "passed"
+        },
+        {
+          "code": "mcap_stats_global",
+          "exit_code": 0,
+          "validation": "passed"
+        },
+        {
+          "code": "mcap_quality_detect",
+          "exit_code": 1,
+          "validation": "failed"
+        }
+      ],
+      "sources_unchanged": true
+    }
+  },
+  "live_nexus_or_harbor_publication": false
+}

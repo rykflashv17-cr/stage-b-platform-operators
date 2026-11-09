@@ -1,0 +1,9 @@
+include:
+  - local: /ci/gitlab/common.yml
+  - local: /ci/gitlab/plan.yml
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH =~ /^(develop|release|main)$/ && $CI_COMMIT_REF_PROTECTED == "true"'
+    - when: never

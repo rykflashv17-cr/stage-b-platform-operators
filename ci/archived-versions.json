@@ -1,0 +1,27 @@
+{
+  "mcap_delivery_accepted/v4.0.1": {
+    "build": {
+      "record_digest": "sha256:3fc39b3c8da3fda7808d50fa9f6e968d03c527e2deee0a2079bd5ad6255fcea8",
+      "input_digest": "83f36feec75e3a145fc5468becfbb98c711e26ee4481ef2478b874c4600a9419"
+    },
+    "source": {
+      "commit": "9fb219547f6c44454048b24cbe1d64cd457294c8",
+      "path": "operators/mcap_delivery_accepted/v4.0.1",
+      "definition_sha256": "0a1543839cdd19264c50130c9c426cacadb0521f785c73024c87b3ed33628d50"
+    },
+    "tests": {
+      "source": {
+        "definition_digest": "12ae83ddd66661cb43e1581b5521b0031b88a2b56f5f0c9bfac824d183138551",
+        "record_digest": "sha256:40ecb5b1257e1cda808f2f74eaba7d8826d7b3c2c09b7b525940e7f9e8f69c9a"
+      },
+      "wheel": {
+        "definition_digest": "5a556b4d08d7d36b8f70b40fb949e264e9848f4e6623cf017996b129820d71e4",
+        "record_digest": "sha256:04ba0f7e212c11031cb92bd1972e738214ed988c0c6816abf595654b1ccd63e7"
+      },
+      "container": {
+        "definition_digest": "58537b0ae413fabc09fc6f99ad46a51be8d943729b0beff17fc5659985a0e015",
+        "record_digest": "sha256:aee02a4e98caa2e9d59fcf7a954f135556bf46809b2c30ef22ef7c6e619827a4"
+      }
+    }
+  }
+}

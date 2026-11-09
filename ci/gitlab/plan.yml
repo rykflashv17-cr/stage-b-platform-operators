@@ -1,0 +1,21 @@
+plan-changes:
+  stage: plan
+  script: [sh ci/scripts/plan.sh]
+  environment:
+    name: plan-read
+    action: prepare
+  artifacts:
+    paths: [build/plan.json, build/child.yml, build/checks/, build/base-images.json]
+    expire_in: 30 days
+
+run-jobs:
+  stage: build
+  needs: [plan-changes]
+  trigger:
+    include:
+      - artifact: build/child.yml
+        job: plan-changes
+    strategy: mirror
+    forward:
+      yaml_variables: true
+      pipeline_variables: false

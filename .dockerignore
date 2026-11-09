@@ -1,0 +1,7 @@
+**
+!Dockerfile
+!main.py
+!operator.yaml
+!wheelhouse/
+!wheelhouse/*.whl
+!requirements.install.txt

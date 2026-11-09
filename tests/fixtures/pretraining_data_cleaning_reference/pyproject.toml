@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stage-b-mcap-operators-v4"
+version = "0.1.0"
+description = "Four Stage B operators for whole-MCAP quality filtering and delivery"
+requires-python = ">=3.10"
+dependencies = [
+  "mcap",
+  "mcap-protobuf-support",
+  "numpy",
+  "scipy",
+  "pyarrow",
+  "PyYAML",
+  "tqdm",
+]
+
+[project.scripts]
+slm-stage-b-mcap-v4 = "stage_b_mcap_v4.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["stage_b_mcap_v4*"]

@@ -1,0 +1,13 @@
+include:
+  - local: /ci/gitlab/common.yml
+  - local: /ci/gitlab/build.yml
+  - local: /ci/gitlab/test.yml
+  - local: /ci/gitlab/publish.yml
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "parent_pipeline"'
+    - when: never
+
+.check-plan:
+  extends: .operator-job

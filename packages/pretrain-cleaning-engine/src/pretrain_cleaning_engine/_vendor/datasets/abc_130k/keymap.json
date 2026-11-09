@@ -1,0 +1,38 @@
+{
+  "source": "ABC-130k MCAP + ABC-130k-EEF official FK parquet",
+  "target": "Dataclean/standard_info.json",
+  "notes": {
+    "state_action": "14d joint+gripper (6+1)×2; gripper closedness=1-aperture (MCAP aperture: 0=closed,1=open)",
+    "eef": "eef_pose.parquet pose[16] row-major 4x4 in left_arm_base; NN-sync onto camera timeline; export xyz+rotation_6d",
+    "cameras": "top|/top-left → camera_top; wrists → wrist_left/right; ZED top-right dropped",
+    "sync": "NN onto reference camera; 60Hz band stride-2 → 30Hz export",
+    "extrinsics": "none — CameraCalibration K only; extrinsic_confidence=untrusted",
+    "robot": "yam_bimanual"
+  },
+  "roots": {
+    "mcap": "/mnt/pfs/datasets/ABC-130k",
+    "eef": "/mnt/pfs/datasets/ABC-130k-EEF"
+  },
+  "images": {
+    "/top-camera": "observation.images.top",
+    "/top-left-camera": "observation.images.top",
+    "/left-wrist-camera": "observation.images.left_wrist",
+    "/right-wrist-camera": "observation.images.right_wrist"
+  },
+  "action": {
+    "action.arm.left.joint_position": "/left-arm-action.position[0:6]",
+    "action.gripper.left.closedness": "1 - /left-ee-action.position[0]",
+    "action.arm.right.joint_position": "/right-arm-action.position[0:6]",
+    "action.gripper.right.closedness": "1 - /right-ee-action.position[0]",
+    "action.eef.left": "/left-arm-action rows in eef_pose.parquet",
+    "action.eef.right": "/right-arm-action rows in eef_pose.parquet"
+  },
+  "observation": {
+    "observation.state.arm.left.joint_position": "/left-arm-state.position[0:6]",
+    "observation.state.gripper.left.closedness": "1 - /left-ee-state.position[0]",
+    "observation.state.arm.right.joint_position": "/right-arm-state.position[0:6]",
+    "observation.state.gripper.right.closedness": "1 - /right-ee-state.position[0]",
+    "observation.state.eef.left": "/left-arm-state rows in eef_pose.parquet",
+    "observation.state.eef.right": "/right-arm-state rows in eef_pose.parquet"
+  }
+}

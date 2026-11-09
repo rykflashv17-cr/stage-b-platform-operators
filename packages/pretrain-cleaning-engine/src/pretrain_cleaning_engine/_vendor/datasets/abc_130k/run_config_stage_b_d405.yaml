@@ -1,0 +1,85 @@
+# Stage B: ABC-130k D405 repaired Stage A (externally prepared aggregated v3, 640x480 @ 30 fps)
+#   /mnt/pfs/datasets/Processed/ABC-130k-D405-EEF-640x480-30fps-crop-repaired → cleaned pseudo_v3
+# Stage A review: review/audits/abc_130k/20260929_stageA_D405_repaired/REPORT.md
+#   - EEF (left_arm_base, axes already gripper_motion_aligned) + gripper only, no joints;
+#     camera_calibration unavailable (no extrinsic / intrinsic) → identity P1, no P6.
+#   - Stage A has no info.video_resolution; the reviewed block, extended by the Stage B resize,
+#     is merged in (stage_a_info_patch) without touching the published Stage A.
+#   - Stage A videos are 640x480, x264 keyint=250; normalize_videos re-encodes every kept episode
+#     to the contract short side 384 (512x384, EPISODE_CAMERA_GEOMETRY_PREPROCESSING.md §4.1)
+#     with GOP max_keyframe_interval / CRF 18.
+dataset:
+  name: abc_130k_d405
+  root: /mnt/pfs/datasets/Processed/ABC-130k-D405-EEF-640x480-30fps-crop-repaired  # stage_b_clean_d405.sh passes --input-root
+  embodiment: yam
+  fps: 30
+  layout: single_root
+  input_format: pseudo_v3
+
+pipeline:
+  mode: clean
+  num_workers: 150
+  export_workers: 150
+  output_mode: filter
+  force_skip_gate: true
+  parallel_videos: true
+  recompute_video_stats: false
+  sample_mode: sequential
+  # info keys of the Stage A root replaced before they are carried over (REPORT SA-RES).
+  stage_a_info_patch:
+    video_resolution: video_resolution_d405_stage_b.json  # Stage A plan (→640x480) + Stage B 512x384
+  # Stage A provenance declarations kept verbatim in Stage B (review SB-DECL: dropped otherwise).
+  stage_a_info_carry:
+    - physical_synchronization   # cross-stream offsets deferred by user
+    - base_geometry              # left_arm_base E, right base offset, FK base assumption
+    - gripper                    # closedness mapping from source opening
+    - axis_migration             # source grasp_site -> unified EEF axes
+    - source_timing              # source clocks kept in audit/*.source.parquet
+    - statistics_population
+
+media:
+  target_height: 384
+  target_short_side: 384
+  max_keyframe_interval: 10
+  require_camera_top: true
+  normalize_videos: true
+
+episode_geometry:
+  enabled: false
+
+speed_align:
+  enabled: false
+
+temporal_align:
+  apply_delay: false
+  mode: stats
+  manual_delay: null
+  # Declared info.state_action_delay (no shift: mode=stats, apply_delay=false). ABC has no joint
+  # columns, so the lag stats have no rows and fall back to default_lag; measured action->state
+  # lead is 4-5 frames (stage2 lag 5/4; Stage B n8k review 2026-09-29).
+  default_lag: 4
+
+stage2:
+  fill_missing_action_eef: false
+
+review_corrections:
+  extrinsic_rotation_correction: {}
+  gripper_closedness_correction:
+    action: null
+    state: null
+
+quality_config_path: quality_stage_b_d405.yaml
+
+export:
+  layout: pseudo_v3
+  lerobot_version: pseudo_v3
+  renumber_episodes: true
+  keep_all_frames: false
+  v30:
+    aggregate_media: false
+    data_file_size_in_mb: 100
+    video_file_size_in_mb: 200
+
+relative_statistics:
+  enabled: true
+  statistics_horizon_seconds: 2.0

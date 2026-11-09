@@ -1,0 +1,46 @@
+{
+  "declaration_examples": {
+    "validation": "passed",
+    "operators": 4,
+    "templates": 1,
+    "examples": 30
+  },
+  "protected_files_unchanged": 192,
+  "sdk_unchanged": true,
+  "template_wheel_sha256": "3d3946e4022e3ab62243b39d7fb41523c61905699eb067c0c2bcc8d948aa4713",
+  "installed_template_matches_source": true,
+  "only_template_lock_record_changed": true,
+  "date": "2026-11-02",
+  "scope": "Template-owned input/output and standard quality reporting; only operators repository modified",
+  "template_version": "1.0.0",
+  "sdk_version": "0.3.0.dev0",
+  "review": "Local source/diff, extracted report AST, installed files and packaging consistency checked; no independent agent review for this template-only change.",
+  "tests": {
+    "repository": {
+      "tests": 49,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "installed_template": {
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "scenarios": [
+    "PASS with default threshold",
+    "PASS at threshold boundary",
+    "REJECT with default threshold",
+    "REJECT with overridden threshold",
+    "invalid score type",
+    "score outside declared range",
+    "missing score",
+    "business record ID preserved and standard quality identity mapped"
+  ],
+  "template_definition_sha256": "7fb7b5ca15694a8262d0489d445641c82d6bb5d4885e066414b42fa702eb6278",
+  "limits": [
+    "Local source and installed-wheel validation only; no image rebuild, production registration, commit or push."
+  ]
+}

@@ -1,0 +1,31 @@
+requirements:
+  platform: linux/amd64
+  runner_tags:
+  - software
+  environment: tests/pipelines/pretraining_data_cleaning/uv.lock
+combinations:
+  manifest_delivery:
+    versions:
+      read: mcap_read_normalize/v4.0.1
+      statistics: mcap_stats_global/v4.0.1
+      quality: mcap_quality_detect/v4.0.1
+      delivery: mcap_delivery_accepted/v4.0.1
+    tests:
+    - test_container_pipeline.py
+    - test_container_fixtures.py
+    parameters:
+      delivery: manifest
+  archive_delivery:
+    versions:
+      read: mcap_read_normalize/v4.0.1
+      statistics: mcap_stats_global/v4.0.1
+      quality: mcap_quality_detect/v4.0.1
+      delivery: mcap_delivery_accepted/v5.0.0
+    tests:
+    - test_container_pipeline.py
+    parameters:
+      delivery: archive
+container_checks: {}
+fixtures:
+- tests/support
+- tests/fixtures/pretraining_data_cleaning_reference

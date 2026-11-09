@@ -1,0 +1,8 @@
+.build-packages:
+  extends: .operator-job
+
+.build-operator-images:
+  extends: .operator-job
+
+.build-base-images:
+  extends: .operator-job

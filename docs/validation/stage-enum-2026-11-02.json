@@ -1,0 +1,85 @@
+{
+  "date": "2026-11-02",
+  "change": "stage and batchMode use exact lowercase author declaration values",
+  "local_only": true,
+  "source_state": "working tree; uncommitted changes",
+  "sdk_version": "0.2.0.dev0",
+  "python_version": "3.12.14",
+  "stage_values": [
+    "ingest",
+    "preprocess",
+    "postprocess",
+    "quality",
+    "annotation",
+    "delivery"
+  ],
+  "batch_mode_values": [
+    "none",
+    "chunk",
+    "all"
+  ],
+  "quality_decisions": [
+    "PASS",
+    "REJECT",
+    "UNKNOWN"
+  ],
+  "results": {
+    "sdk_full_suite": {
+      "passed": 114,
+      "new_stage_cases": 12
+    },
+    "operators_full_suite": {
+      "passed": 31
+    },
+    "installed_entrypoint_pipeline": {
+      "passed": 8,
+      "subprocess_source_path": false
+    },
+    "declaration_examples": {
+      "operators": 4,
+      "templates": 1,
+      "passed": 30
+    },
+    "tutorial": {
+      "passed": 7,
+      "cases": [
+        "default_pass",
+        "threshold_reject",
+        "invalid_input",
+        "python_api",
+        "file_directory_handoff",
+        "invalid_parameter",
+        "missing_quality_member"
+      ]
+    },
+    "wheel_build": {
+      "projects": 8
+    }
+  },
+  "wheel_sha256": {
+    "example_quality_gate-1.0.0-py3-none-any.whl": "4722e30a1552eff47fc04569298ce167e5ea5d573aff70baa994b5e7c4006121",
+    "striding_operator_mcap_delivery_accepted-1.0.0-py3-none-any.whl": "56a69f4e150695ed07e95ccad65ffa4e45f4c2137ba96ab198077b9321acb439",
+    "striding_operator_mcap_quality_detect-1.0.0-py3-none-any.whl": "4487504f44c31b399739630653ecc85cabb549ba54031b2b1b20a0a820e39a3e",
+    "striding_operator_mcap_read_normalize-1.0.0-py3-none-any.whl": "354d2d4448bdd9155dec8ca6715225af589d8f7c1a574ea60fa1ab0480876f95",
+    "striding_operator_mcap_stats_global-1.0.0-py3-none-any.whl": "33b668016836f136680c56a4c61d23751bfa449389423d4a4240056e2cb6478d",
+    "striding_operator_sdk-0.2.0.dev0-py3-none-any.whl": "c9018821f6883b895f6ae67109fcf2c875ee8503f152abd0ce12a16890fb7b30",
+    "striding_stage_b_mcap_common-0.1.0-py3-none-any.whl": "723ea64b0b19983c46e095821e4f6787665592e89a6b1aa846449bb56f46015d",
+    "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl": "479a96fe93761052c8ca0d3fc063fb5d8b74f40ecd75bd334118431b9acb6be9"
+  },
+  "declaration_sha256": {
+    "operators/mcap_delivery_accepted/v1.0.0/operator.yaml": "39ba367425f3f97badb8a9f0e8cd2ebe05be21e77bb4b94f811809defc26c0c2",
+    "operators/mcap_quality_detect/v1.0.0/operator.yaml": "fc2485c54878b526d192d91a3a563bc039d2bf8bdec81f7378027d238e7b2de8",
+    "operators/mcap_read_normalize/v1.0.0/operator.yaml": "e5eed017687e0b4de860ee59d475e0158e73bd8f127495c479d51dd7d2bc4e24",
+    "operators/mcap_stats_global/v1.0.0/operator.yaml": "c0ff6be7021426f2e0219d5ea939be171f3d5d1671c05ec8aa85a4887a652e11",
+    "templates/python-operator/operator.yaml": "7fb7b5ca15694a8262d0489d445641c82d6bb5d4885e066414b42fa702eb6278"
+  },
+  "sdk_source_sha256": {
+    "src/operator_sdk/v2/declaration.py": "b467ebf71ddc82dc17bb2185f354b574a5a3c04db6621d0a9fc64793aab9aefe",
+    "src/operator_sdk/v2/reporting.py": "894b1bc5805bc7c851725ec7f75bfa628d71fcb76082290454027e442e480f7f",
+    "src/operator_sdk/v2/verified.py": "619983049022f0cce834a7eb484b762f9ace4404da7f2ffbd8c7001d3793ff25"
+  },
+  "container_validation": "not rerun for this change; 2026-11-01 evidence is a previous baseline",
+  "platform_business_logic_modified": false,
+  "platform_registration": false,
+  "remote_publication": false
+}

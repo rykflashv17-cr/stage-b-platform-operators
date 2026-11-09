@@ -1,0 +1,2047 @@
+{
+  "date": "2026-11-06",
+  "pipeline_url": "https://gitlab.striding.internal/stridingai/data/data-platform-operators/-/pipelines/12184",
+  "probe_commit": "d3cfe7b75a31418874165da0252272831cf3d656",
+  "revisions": {
+    "first_batch": "e25fa541103916b34ef352d8f35f0201fcef35a4",
+    "current": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b"
+  },
+  "scope": "package preparation, offline image build and identical container fixtures",
+  "cold_definition": "fresh uv/wheel caches plus docker --no-cache; foundation daemon cache retained",
+  "excluded": [
+    "initial foundation blob download",
+    "registry push/mirror",
+    "GitLab job orchestration",
+    "source-change warm rebuild",
+    "peak disk and network byte measurement"
+  ],
+  "foundation": {
+    "harbor.striding.internal/data/data-operators/base/runtime/python312-cpu:1.0.1": {
+      "reference": "harbor.striding.internal/data/data-operators/base/runtime/python312-cpu@sha256:25579f1497137171b64463fa6c169b45a0a773db9f0a2f20024f548e8b9b3b9d",
+      "digest": "sha256:25579f1497137171b64463fa6c169b45a0a773db9f0a2f20024f548e8b9b3b9d",
+      "image_id": "sha256:25579f1497137171b64463fa6c169b45a0a773db9f0a2f20024f548e8b9b3b9d",
+      "bootstrap": false
+    }
+  },
+  "jobs": [
+    {
+      "job_id": 28874,
+      "runner_id": 2,
+      "url": "https://gitlab.striding.internal/stridingai/data/data-platform-operators/-/jobs/28874",
+      "duration_seconds": 834.29093,
+      "queued_seconds": 0.961859,
+      "artifact_sha256": "f44f993241aecd0687576d4809ac423ef5e18a9dce2e7490b6e6ad4261977fea"
+    },
+    {
+      "job_id": 28875,
+      "runner_id": 3,
+      "url": "https://gitlab.striding.internal/stridingai/data/data-platform-operators/-/jobs/28875",
+      "duration_seconds": 828.672374,
+      "queued_seconds": 1.228097,
+      "artifact_sha256": "ada1e1b81b0ae17fc660a4a86aa17a8d066198c1b5676559e3053ee741b314ab"
+    }
+  ],
+  "total_measurements": 24,
+  "total_container_tests_passed": 96,
+  "medians": [
+    {
+      "runner_id": 2,
+      "phase": "cold",
+      "revision": "first_batch",
+      "prepare_seconds": 4.475,
+      "image_seconds": 104.532,
+      "container_seconds": 9.506,
+      "total_seconds": 118.595
+    },
+    {
+      "runner_id": 2,
+      "phase": "cold",
+      "revision": "current",
+      "prepare_seconds": 4.074,
+      "image_seconds": 105.482,
+      "container_seconds": 9.81,
+      "total_seconds": 119.262
+    },
+    {
+      "runner_id": 2,
+      "phase": "warm",
+      "revision": "first_batch",
+      "prepare_seconds": 2.471,
+      "image_seconds": 5.278,
+      "container_seconds": 9.359,
+      "total_seconds": 17.11
+    },
+    {
+      "runner_id": 2,
+      "phase": "warm",
+      "revision": "current",
+      "prepare_seconds": 2.169,
+      "image_seconds": 5.277,
+      "container_seconds": 9.56,
+      "total_seconds": 17.263
+    },
+    {
+      "runner_id": 3,
+      "phase": "cold",
+      "revision": "first_batch",
+      "prepare_seconds": 4.374,
+      "image_seconds": 101.586,
+      "container_seconds": 9.703,
+      "total_seconds": 115.663
+    },
+    {
+      "runner_id": 3,
+      "phase": "cold",
+      "revision": "current",
+      "prepare_seconds": 4.026,
+      "image_seconds": 102.751,
+      "container_seconds": 9.101,
+      "total_seconds": 115.829
+    },
+    {
+      "runner_id": 3,
+      "phase": "warm",
+      "revision": "first_batch",
+      "prepare_seconds": 2.47,
+      "image_seconds": 5.076,
+      "container_seconds": 8.955,
+      "total_seconds": 16.652
+    },
+    {
+      "runner_id": 3,
+      "phase": "warm",
+      "revision": "current",
+      "prepare_seconds": 2.069,
+      "image_seconds": 4.977,
+      "container_seconds": 8.753,
+      "total_seconds": 15.9
+    }
+  ],
+  "measurements": [
+    {
+      "revision": "current",
+      "commit": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b",
+      "repetition": 1,
+      "phase": "cold",
+      "runner_id": "2",
+      "job_id": "28874",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 4.074,
+      "image_seconds": 104.282,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28874-current-1",
+          "id": "sha256:7c72e96a7d187c183560c0f84737f0ab2e4ae39120ef1bc1e615fab9b3bd340b"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28874-current-1",
+          "id": "sha256:8273d41bb6b1bd0efd0932313fd9ce5e0c336a4f97a537bdc7f9e1405587aa48"
+        }
+      },
+      "docker_cached_steps": 4,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16416505
+      },
+      "prepared_wheels": [
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.2-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.3-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_engine-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 9.81,
+      "total_seconds": 118.166
+    },
+    {
+      "revision": "current",
+      "commit": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b",
+      "repetition": 1,
+      "phase": "warm",
+      "runner_id": "2",
+      "job_id": "28874",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 2.071,
+      "image_seconds": 5.23,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28874-current-1",
+          "id": "sha256:7284d03bf2c5a574cea264ec8f23ca0e36066012a4efe859dfd72d68c46c374a"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28874-current-1",
+          "id": "sha256:9d53898b1bb26d9106a9e4e1ddbc2f2f2b1b4c8f8f90f76e264c5913a85bfff5"
+        }
+      },
+      "docker_cached_steps": 22,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16416505
+      },
+      "prepared_wheels": [
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.2-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.3-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_engine-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 10.711,
+      "total_seconds": 18.012
+    },
+    {
+      "revision": "first_batch",
+      "commit": "e25fa541103916b34ef352d8f35f0201fcef35a4",
+      "repetition": 1,
+      "phase": "cold",
+      "runner_id": "2",
+      "job_id": "28874",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 4.577,
+      "image_seconds": 104.512,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28874-first-batch-1",
+          "id": "sha256:5f4d916766e5a2f1986e2ef39b1bec37fc71725f680bc7f56ee27401ebf19e2b"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28874-first-batch-1",
+          "id": "sha256:19bd8a2229574a4d85123ba9898c12c735a014ddc8124a03570b9bf57701abc0"
+        }
+      },
+      "docker_cached_steps": 4,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16417773
+      },
+      "prepared_wheels": [
+        "example_quality_gate-1.0.0-py3-none-any.whl",
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.2-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.3-py3-none-any.whl",
+        "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 9.506,
+      "total_seconds": 118.595
+    },
+    {
+      "revision": "first_batch",
+      "commit": "e25fa541103916b34ef352d8f35f0201fcef35a4",
+      "repetition": 1,
+      "phase": "warm",
+      "runner_id": "2",
+      "job_id": "28874",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 2.47,
+      "image_seconds": 5.278,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28874-first-batch-1",
+          "id": "sha256:ce05fbf201dfe28f03aeb81744874375111730b49a70612b09b08fc4cd7cdf2d"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28874-first-batch-1",
+          "id": "sha256:ef1aea531bbb936c1f48d68b7e9681c1a6a8ba573c20623aaba63f3beb0879b9"
+        }
+      },
+      "docker_cached_steps": 22,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16417773
+      },
+      "prepared_wheels": [
+        "example_quality_gate-1.0.0-py3-none-any.whl",
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.2-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.3-py3-none-any.whl",
+        "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 9.302,
+      "total_seconds": 17.05
+    },
+    {
+      "revision": "first_batch",
+      "commit": "e25fa541103916b34ef352d8f35f0201fcef35a4",
+      "repetition": 2,
+      "phase": "cold",
+      "runner_id": "2",
+      "job_id": "28874",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 4.375,
+      "image_seconds": 104.96,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28874-first-batch-2",
+          "id": "sha256:2d4e94507f2258731f08ce82c7c36392e752d4adb178f348d80169d47afba73e"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28874-first-batch-2",
+          "id": "sha256:c49bf25530ec051f69cdf730e4ff64489a119098d4d1e0d82759b2f362597b96"
+        }
+      },
+      "docker_cached_steps": 4,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16417773
+      },
+      "prepared_wheels": [
+        "example_quality_gate-1.0.0-py3-none-any.whl",
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.2-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.3-py3-none-any.whl",
+        "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 10.206,
+      "total_seconds": 119.541
+    },
+    {
+      "revision": "first_batch",
+      "commit": "e25fa541103916b34ef352d8f35f0201fcef35a4",
+      "repetition": 2,
+      "phase": "warm",
+      "runner_id": "2",
+      "job_id": "28874",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 2.471,
+      "image_seconds": 5.679,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28874-first-batch-2",
+          "id": "sha256:b397c4c397234db3611315457bcd58503b5e455f4413c6cea57df3ad93d2b605"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28874-first-batch-2",
+          "id": "sha256:659a33ea9a1eccddef524d92685d18f1332316fc68fd3297f8b73f7cabf52aee"
+        }
+      },
+      "docker_cached_steps": 22,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16417773
+      },
+      "prepared_wheels": [
+        "example_quality_gate-1.0.0-py3-none-any.whl",
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.2-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.3-py3-none-any.whl",
+        "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 9.604,
+      "total_seconds": 17.754
+    },
+    {
+      "revision": "current",
+      "commit": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b",
+      "repetition": 2,
+      "phase": "cold",
+      "runner_id": "2",
+      "job_id": "28874",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 4.074,
+      "image_seconds": 107.006,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28874-current-2",
+          "id": "sha256:ae1e79bb4bb8bf5f519bcda49e80cc3adfef5262e51d8a8b51a46d715ab2cbb0"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28874-current-2",
+          "id": "sha256:e1e619163be478e985ca94edcac0c85db14a3d258448840f17ea2521304d1229"
+        }
+      },
+      "docker_cached_steps": 4,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16416505
+      },
+      "prepared_wheels": [
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.2-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.3-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_engine-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 11.112,
+      "total_seconds": 122.192
+    },
+    {
+      "revision": "current",
+      "commit": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b",
+      "repetition": 2,
+      "phase": "warm",
+      "runner_id": "2",
+      "job_id": "28874",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 2.372,
+      "image_seconds": 5.331,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28874-current-2",
+          "id": "sha256:9c1da497145f3fd9f3b4075a4dc854a6da08e50e451bc1dfccb2de0228dedded"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28874-current-2",
+          "id": "sha256:e9c146032b9254a6949fc26624eadb8ec3118b1864a46423ee0a84cf3aa0a4d6"
+        }
+      },
+      "docker_cached_steps": 22,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16416505
+      },
+      "prepared_wheels": [
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.2-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.3-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_engine-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 9.56,
+      "total_seconds": 17.263
+    },
+    {
+      "revision": "current",
+      "commit": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b",
+      "repetition": 3,
+      "phase": "cold",
+      "runner_id": "2",
+      "job_id": "28874",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 4.077,
+      "image_seconds": 105.482,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28874-current-3",
+          "id": "sha256:955d5feb2525d3afb747d0cb0384564e4c823d73b369a61edd1a4b519d084f14"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28874-current-3",
+          "id": "sha256:79bc15d425439438d81e8f7d66074977fea43a05bb2b516441c343490d0a9ee7"
+        }
+      },
+      "docker_cached_steps": 4,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16416505
+      },
+      "prepared_wheels": [
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.2-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.3-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_engine-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 9.703,
+      "total_seconds": 119.262
+    },
+    {
+      "revision": "current",
+      "commit": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b",
+      "repetition": 3,
+      "phase": "warm",
+      "runner_id": "2",
+      "job_id": "28874",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 2.169,
+      "image_seconds": 5.277,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28874-current-3",
+          "id": "sha256:a6a2909c1066f8b9d641bbeb1f0767c7c2b98441f6bcca7acbc60571d87096a6"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28874-current-3",
+          "id": "sha256:fa3503342acc37fce5f5c67f7d9760691d6ddb476cbbef704c19b712a639b368"
+        }
+      },
+      "docker_cached_steps": 22,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16416505
+      },
+      "prepared_wheels": [
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.2-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.3-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_engine-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 9.212,
+      "total_seconds": 16.658
+    },
+    {
+      "revision": "first_batch",
+      "commit": "e25fa541103916b34ef352d8f35f0201fcef35a4",
+      "repetition": 3,
+      "phase": "cold",
+      "runner_id": "2",
+      "job_id": "28874",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 4.475,
+      "image_seconds": 104.532,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28874-first-batch-3",
+          "id": "sha256:df3212197293970c15ae7c1cd2656535c0123c740f69b7d856b2401574881859"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28874-first-batch-3",
+          "id": "sha256:6446094ce91817387e4233e5d17f6f6e75b66363df14b974c12403c938b75248"
+        }
+      },
+      "docker_cached_steps": 4,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16417773
+      },
+      "prepared_wheels": [
+        "example_quality_gate-1.0.0-py3-none-any.whl",
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.2-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.3-py3-none-any.whl",
+        "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 9.46,
+      "total_seconds": 118.467
+    },
+    {
+      "revision": "first_batch",
+      "commit": "e25fa541103916b34ef352d8f35f0201fcef35a4",
+      "repetition": 3,
+      "phase": "warm",
+      "runner_id": "2",
+      "job_id": "28874",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 2.522,
+      "image_seconds": 5.229,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28874-first-batch-3",
+          "id": "sha256:82dbd7b284520d0ef4885908ca7a7696ecc7bc00a02a6a27735e3b1ebb96f1b3"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28874-first-batch-3",
+          "id": "sha256:6a4542b89f8745ff3bf0e876804c0e59630fff82b2ed61eb2a3caa7f7b51b0a8"
+        }
+      },
+      "docker_cached_steps": 22,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16417773
+      },
+      "prepared_wheels": [
+        "example_quality_gate-1.0.0-py3-none-any.whl",
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.2-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.3-py3-none-any.whl",
+        "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 9.359,
+      "total_seconds": 17.11
+    },
+    {
+      "revision": "first_batch",
+      "commit": "e25fa541103916b34ef352d8f35f0201fcef35a4",
+      "repetition": 1,
+      "phase": "cold",
+      "runner_id": "3",
+      "job_id": "28875",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 4.374,
+      "image_seconds": 101.586,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28875-first-batch-1",
+          "id": "sha256:4d2279fd114c0b150e985dea0e380a4c5046ceebe84cdf9a2a9fe716043bf7fd"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28875-first-batch-1",
+          "id": "sha256:8501f1032cea08d890b9d7fdd15d5b75de7a9c6b5f7ff670694ec663cd338004"
+        }
+      },
+      "docker_cached_steps": 4,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16417773
+      },
+      "prepared_wheels": [
+        "example_quality_gate-1.0.0-py3-none-any.whl",
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.2-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.3-py3-none-any.whl",
+        "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 9.703,
+      "total_seconds": 115.663
+    },
+    {
+      "revision": "first_batch",
+      "commit": "e25fa541103916b34ef352d8f35f0201fcef35a4",
+      "repetition": 1,
+      "phase": "warm",
+      "runner_id": "3",
+      "job_id": "28875",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 2.42,
+      "image_seconds": 4.927,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28875-first-batch-1",
+          "id": "sha256:8b3ee7c42f2fbbd94d3ed0c527c20727733dd10d3144d7fccb0c3490dd935e57"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28875-first-batch-1",
+          "id": "sha256:80c050324500387d2a0e07286ef772e3dbb56a5b48bd19ac21f7d13ec2257bdd"
+        }
+      },
+      "docker_cached_steps": 22,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16417773
+      },
+      "prepared_wheels": [
+        "example_quality_gate-1.0.0-py3-none-any.whl",
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.2-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.3-py3-none-any.whl",
+        "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 10.004,
+      "total_seconds": 17.351
+    },
+    {
+      "revision": "current",
+      "commit": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b",
+      "repetition": 1,
+      "phase": "cold",
+      "runner_id": "3",
+      "job_id": "28875",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 3.974,
+      "image_seconds": 102.751,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28875-current-1",
+          "id": "sha256:3aa2ac24e8bcaea696f80358b506aebb541964c18d1588cae5e5926e927dcfb7"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28875-current-1",
+          "id": "sha256:4c4c6c75220fe1b5dc43801126ec126c1a5fbf09fb12457c847330c026723cd4"
+        }
+      },
+      "docker_cached_steps": 4,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16416505
+      },
+      "prepared_wheels": [
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.2-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.3-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_engine-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 9.104,
+      "total_seconds": 115.829
+    },
+    {
+      "revision": "current",
+      "commit": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b",
+      "repetition": 1,
+      "phase": "warm",
+      "runner_id": "3",
+      "job_id": "28875",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 2.12,
+      "image_seconds": 5.027,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28875-current-1",
+          "id": "sha256:d79d8927dd2e67825991fc312c59f0aeb6258524df7d765fc8c1d6bf0fe7737e"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28875-current-1",
+          "id": "sha256:320ea8cb362b2897aa3a8c88c6205bd3156962d0d6187f1c995581dcfafcb2a0"
+        }
+      },
+      "docker_cached_steps": 22,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16416505
+      },
+      "prepared_wheels": [
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.2-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.3-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_engine-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 8.753,
+      "total_seconds": 15.9
+    },
+    {
+      "revision": "current",
+      "commit": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b",
+      "repetition": 2,
+      "phase": "cold",
+      "runner_id": "3",
+      "job_id": "28875",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 4.026,
+      "image_seconds": 112.803,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28875-current-2",
+          "id": "sha256:389fb18204cda5214d809a91b543b6f50a7892b22b3073fb2ec7c8e272257564"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28875-current-2",
+          "id": "sha256:5d21017d746083fd6d295a1ba8ff0d2887884d7f7e66551fd88a280099c63d5f"
+        }
+      },
+      "docker_cached_steps": 4,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16416505
+      },
+      "prepared_wheels": [
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.2-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.3-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_engine-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 8.95,
+      "total_seconds": 125.779
+    },
+    {
+      "revision": "current",
+      "commit": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b",
+      "repetition": 2,
+      "phase": "warm",
+      "runner_id": "3",
+      "job_id": "28875",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 2.069,
+      "image_seconds": 4.977,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28875-current-2",
+          "id": "sha256:a02d852c5f7251b448462a70401621cf96af32ba656d612ba18a87eb878f06cb"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28875-current-2",
+          "id": "sha256:87db2d88ac85b1cf8000d6db6e1ba2a5eea2ed635a7b08a6dfd4de8b015e2c66"
+        }
+      },
+      "docker_cached_steps": 22,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16416505
+      },
+      "prepared_wheels": [
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.2-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.3-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_engine-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 8.907,
+      "total_seconds": 15.953
+    },
+    {
+      "revision": "first_batch",
+      "commit": "e25fa541103916b34ef352d8f35f0201fcef35a4",
+      "repetition": 2,
+      "phase": "cold",
+      "runner_id": "3",
+      "job_id": "28875",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 4.326,
+      "image_seconds": 109.282,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28875-first-batch-2",
+          "id": "sha256:1cb3a318d435ed4fca610f76e10adfc03fa50395f71e55590beee0e7545f0141"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28875-first-batch-2",
+          "id": "sha256:7f320f6489d76c3d386923aee15b1689bc880da40876e9a0b59e7b20dba4a02f"
+        }
+      },
+      "docker_cached_steps": 4,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16417773
+      },
+      "prepared_wheels": [
+        "example_quality_gate-1.0.0-py3-none-any.whl",
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.2-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.3-py3-none-any.whl",
+        "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 18.135,
+      "total_seconds": 131.743
+    },
+    {
+      "revision": "first_batch",
+      "commit": "e25fa541103916b34ef352d8f35f0201fcef35a4",
+      "repetition": 2,
+      "phase": "warm",
+      "runner_id": "3",
+      "job_id": "28875",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 2.47,
+      "image_seconds": 5.227,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28875-first-batch-2",
+          "id": "sha256:db4a19ea269dff15e849ce37ac39f87441563e57b9406dddb6d9ff72298f5944"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28875-first-batch-2",
+          "id": "sha256:e69abc37cc038bb8ec6a5e73a06b54f5fc688aa8d0e61f22ff03c3ffb5ebec8f"
+        }
+      },
+      "docker_cached_steps": 22,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16417773
+      },
+      "prepared_wheels": [
+        "example_quality_gate-1.0.0-py3-none-any.whl",
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.2-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.3-py3-none-any.whl",
+        "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 8.955,
+      "total_seconds": 16.652
+    },
+    {
+      "revision": "first_batch",
+      "commit": "e25fa541103916b34ef352d8f35f0201fcef35a4",
+      "repetition": 3,
+      "phase": "cold",
+      "runner_id": "3",
+      "job_id": "28875",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 4.427,
+      "image_seconds": 101.096,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28875-first-batch-3",
+          "id": "sha256:bf6b1d522a1b7aec47a05d51f8288d499168366dc242f729da0773f05542fe01"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28875-first-batch-3",
+          "id": "sha256:20f4eedc15332dc8442ba770f2dfec5027bf4ec0a14da666ff9b5be2ae8386c2"
+        }
+      },
+      "docker_cached_steps": 4,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16417773
+      },
+      "prepared_wheels": [
+        "example_quality_gate-1.0.0-py3-none-any.whl",
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.2-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.3-py3-none-any.whl",
+        "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 9.352,
+      "total_seconds": 114.875
+    },
+    {
+      "revision": "first_batch",
+      "commit": "e25fa541103916b34ef352d8f35f0201fcef35a4",
+      "repetition": 3,
+      "phase": "warm",
+      "runner_id": "3",
+      "job_id": "28875",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 2.47,
+      "image_seconds": 5.076,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28875-first-batch-3",
+          "id": "sha256:507645303ab60893ae05f0fc1b27cffdeb0d47f98f97a0cdb7351d02cd93997b"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28875-first-batch-3",
+          "id": "sha256:6f0248ed74edc901a5519e4575b122fa9a767edd66665241ada99a891a725c2b"
+        }
+      },
+      "docker_cached_steps": 22,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16417773
+      },
+      "prepared_wheels": [
+        "example_quality_gate-1.0.0-py3-none-any.whl",
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.2-py3-none-any.whl",
+        "striding_stage_b_mcap_common-0.4.3-py3-none-any.whl",
+        "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 8.801,
+      "total_seconds": 16.347
+    },
+    {
+      "revision": "current",
+      "commit": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b",
+      "repetition": 3,
+      "phase": "cold",
+      "runner_id": "3",
+      "job_id": "28875",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 4.026,
+      "image_seconds": 100.42,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28875-current-3",
+          "id": "sha256:cd7ef3e181a66769a14410663d247a785ce28d67680d015475c68cfd1febcd5e"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28875-current-3",
+          "id": "sha256:200f4e25d437c96466f269a18c1ca85b6c8e55e838a091db6ebe1d38aad4d187"
+        }
+      },
+      "docker_cached_steps": 4,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16416505
+      },
+      "prepared_wheels": [
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.2-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.3-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_engine-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 9.101,
+      "total_seconds": 113.547
+    },
+    {
+      "revision": "current",
+      "commit": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b",
+      "repetition": 3,
+      "phase": "warm",
+      "runner_id": "3",
+      "job_id": "28875",
+      "versions": [
+        "mcap_read_normalize/v4.0.1",
+        "mcap_delivery_accepted/v5.0.0"
+      ],
+      "prepare_seconds": 2.069,
+      "image_seconds": 4.977,
+      "images": {
+        "mcap_read_normalize/v4.0.1": {
+          "tag": "local/mcap_read_normalize:v4.0.1-perf-28875-current-3",
+          "id": "sha256:18e20b938be6332fc3b3ac548b0cb4647c0274ae2648e56766ec06f9ac0671e3"
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "tag": "local/mcap_delivery_accepted:v5.0.0-perf-28875-current-3",
+          "id": "sha256:b3926574a0be049d3629ea5fba4531d6fcaff0e6cdb0c095b2e84f2a98b73bf1"
+        }
+      },
+      "docker_cached_steps": 22,
+      "wheel_download_cache": {
+        "files": 22,
+        "bytes": 133506641
+      },
+      "uv_cache": {
+        "files": 1468,
+        "bytes": 16416505
+      },
+      "prepared_wheels": [
+        "striding_operator_mcap_delivery_accepted-5.0.0-py3-none-any.whl",
+        "striding_operator_mcap_read_normalize-4.0.1-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev7-py3-none-any.whl",
+        "striding_operator_sdk-0.3.0.dev9-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.2-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_common-0.4.3-py3-none-any.whl",
+        "striding_pretraining_data_cleaning_engine-0.1.0-py3-none-any.whl"
+      ],
+      "tests": {
+        "mcap_read_normalize/v4.0.1": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        },
+        "mcap_delivery_accepted/v5.0.0": {
+          "collected": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "exit_code": 0
+        }
+      },
+      "container_seconds": 8.752,
+      "total_seconds": 15.798
+    }
+  ],
+  "pipeline_observations": {
+    "12079": {
+      "pipeline": {
+        "id": 12079,
+        "sha": "a9f5c583c3379123932012d5bea41f5bb69315ff",
+        "ref": "refs/merge-requests/30/head",
+        "source": "merge_request_event",
+        "status": "success",
+        "duration": 167,
+        "queued_duration": 1,
+        "created_at": "2026-11-05T10:41:56.823Z",
+        "started_at": "2026-11-05T10:41:58.409Z",
+        "finished_at": "2026-11-05T10:44:52.281Z"
+      },
+      "children": [],
+      "jobs": [
+        {
+          "id": 28469,
+          "name": "verify-images",
+          "status": "success",
+          "duration": 8.511052,
+          "queued_duration": 2.989561,
+          "runner_id": 3
+        },
+        {
+          "id": 28468,
+          "name": "verify-wheels",
+          "status": "success",
+          "duration": 141.832701,
+          "queued_duration": 2.967967,
+          "runner_id": 3
+        },
+        {
+          "id": 28467,
+          "name": "prepare-plan",
+          "status": "success",
+          "duration": 17.336326,
+          "queued_duration": 0.66367,
+          "runner_id": 3
+        }
+      ]
+    },
+    "12080": {
+      "pipeline": {
+        "id": 12080,
+        "sha": "2263b2b61f3be12deb02bd9e7f4449b65c99560c",
+        "ref": "refs/merge-requests/30/head",
+        "source": "merge_request_event",
+        "status": "success",
+        "duration": 32,
+        "queued_duration": null,
+        "created_at": "2026-11-05T10:46:12.541Z",
+        "started_at": "2026-11-05T10:46:13.343Z",
+        "finished_at": "2026-11-05T10:46:51.776Z"
+      },
+      "children": [],
+      "jobs": [
+        {
+          "id": 28472,
+          "name": "verify-images",
+          "status": "success",
+          "duration": 7.41866,
+          "queued_duration": 3.002114,
+          "runner_id": 3
+        },
+        {
+          "id": 28471,
+          "name": "verify-wheels",
+          "status": "success",
+          "duration": 18.060741,
+          "queued_duration": 2.976954,
+          "runner_id": 3
+        },
+        {
+          "id": 28470,
+          "name": "prepare-plan",
+          "status": "success",
+          "duration": 6.809218,
+          "queued_duration": 0.390417,
+          "runner_id": 3
+        }
+      ]
+    },
+    "12137": {
+      "pipeline": {
+        "id": 12137,
+        "sha": "22643838a16ad26e707ae7611d4fe4eddcba330e",
+        "ref": "refs/merge-requests/34/head",
+        "source": "merge_request_event",
+        "status": "success",
+        "duration": 35,
+        "queued_duration": 203,
+        "created_at": "2026-11-05T16:48:35.074Z",
+        "started_at": "2026-11-05T16:51:58.994Z",
+        "finished_at": "2026-11-05T16:52:40.660Z"
+      },
+      "children": [
+        12139
+      ],
+      "jobs": [
+        {
+          "id": 28705,
+          "name": "plan-changes",
+          "status": "success",
+          "duration": 3.228028,
+          "queued_duration": 203.585765,
+          "runner_id": 2
+        }
+      ]
+    },
+    "12139": {
+      "pipeline": {
+        "id": 12139,
+        "sha": "22643838a16ad26e707ae7611d4fe4eddcba330e",
+        "ref": "refs/merge-requests/34/head",
+        "source": "parent_pipeline",
+        "status": "success",
+        "duration": 32,
+        "queued_duration": 2,
+        "created_at": "2026-11-05T16:52:02.669Z",
+        "started_at": "2026-11-05T16:52:05.281Z",
+        "finished_at": "2026-11-05T16:52:40.372Z"
+      },
+      "children": [],
+      "jobs": [
+        {
+          "id": 28713,
+          "name": "test-operators:mcap_read_normalize/v4.0.1",
+          "status": "success",
+          "duration": 25.207744,
+          "queued_duration": 2.976454,
+          "runner_id": 2
+        },
+        {
+          "id": 28712,
+          "name": "build-packages",
+          "status": "success",
+          "duration": 6.802543,
+          "queued_duration": 2.26496,
+          "runner_id": 2
+        }
+      ]
+    },
+    "12140": {
+      "pipeline": {
+        "id": 12140,
+        "sha": "301b6a9efd773fe5e50b6d7097fa56e976791830",
+        "ref": "refs/merge-requests/34/head",
+        "source": "merge_request_event",
+        "status": "success",
+        "duration": 5,
+        "queued_duration": 2,
+        "created_at": "2026-11-05T16:53:04.585Z",
+        "started_at": "2026-11-05T16:53:07.442Z",
+        "finished_at": "2026-11-05T16:53:14.648Z"
+      },
+      "children": [
+        12141
+      ],
+      "jobs": [
+        {
+          "id": 28714,
+          "name": "plan-changes",
+          "status": "success",
+          "duration": 2.975119,
+          "queued_duration": 2.524086,
+          "runner_id": 2
+        }
+      ]
+    },
+    "12141": {
+      "pipeline": {
+        "id": 12141,
+        "sha": "301b6a9efd773fe5e50b6d7097fa56e976791830",
+        "ref": "refs/merge-requests/34/head",
+        "source": "parent_pipeline",
+        "status": "success",
+        "duration": 2,
+        "queued_duration": null,
+        "created_at": "2026-11-05T16:53:10.748Z",
+        "started_at": "2026-11-05T16:53:11.570Z",
+        "finished_at": "2026-11-05T16:53:14.351Z"
+      },
+      "children": [],
+      "jobs": [
+        {
+          "id": 28716,
+          "name": "check-plan",
+          "status": "success",
+          "duration": 2.765575,
+          "queued_duration": 0.569019,
+          "runner_id": 3
+        }
+      ]
+    },
+    "12178": {
+      "pipeline": {
+        "id": 12178,
+        "sha": "fd833bea212219c0bca7996d66d7603caa7286a6",
+        "ref": "develop",
+        "source": "push",
+        "status": "success",
+        "duration": 113,
+        "queued_duration": null,
+        "created_at": "2026-11-05T23:41:29.018Z",
+        "started_at": "2026-11-05T23:41:29.651Z",
+        "finished_at": "2026-11-05T23:43:31.274Z"
+      },
+      "children": [
+        12179
+      ],
+      "jobs": [
+        {
+          "id": 28862,
+          "name": "plan-changes",
+          "status": "success",
+          "duration": 16.530458,
+          "queued_duration": 0.29718,
+          "runner_id": 2
+        }
+      ]
+    },
+    "12179": {
+      "pipeline": {
+        "id": 12179,
+        "sha": "fd833bea212219c0bca7996d66d7603caa7286a6",
+        "ref": "develop",
+        "source": "parent_pipeline",
+        "status": "success",
+        "duration": 97,
+        "queued_duration": 2,
+        "created_at": "2026-11-05T23:41:46.596Z",
+        "started_at": "2026-11-05T23:41:48.959Z",
+        "finished_at": "2026-11-05T23:43:30.980Z"
+      },
+      "children": [],
+      "jobs": [
+        {
+          "id": 28867,
+          "name": "publish-operator-manifest",
+          "status": "success",
+          "duration": 17.017904,
+          "queued_duration": 1.955857,
+          "runner_id": 2
+        },
+        {
+          "id": 28866,
+          "name": "mirror-operator-images",
+          "status": "success",
+          "duration": 22.821023,
+          "queued_duration": 1.824073,
+          "runner_id": 3
+        },
+        {
+          "id": 28865,
+          "name": "publish-operator-images",
+          "status": "success",
+          "duration": 15.517048,
+          "queued_duration": 0.327641,
+          "runner_id": 2
+        },
+        {
+          "id": 28864,
+          "name": "check-code",
+          "status": "success",
+          "duration": 41.784293,
+          "queued_duration": 2.110478,
+          "runner_id": 3
+        }
+      ]
+    },
+    "12182": {
+      "pipeline": {
+        "id": 12182,
+        "sha": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b",
+        "ref": "develop",
+        "source": "push",
+        "status": "success",
+        "duration": 19,
+        "queued_duration": 1,
+        "created_at": "2026-11-05T23:46:34.497Z",
+        "started_at": "2026-11-05T23:46:35.857Z",
+        "finished_at": "2026-11-05T23:46:58.138Z"
+      },
+      "children": [
+        12183
+      ],
+      "jobs": [
+        {
+          "id": 28871,
+          "name": "plan-changes",
+          "status": "success",
+          "duration": 16.308623,
+          "queued_duration": 1.101259,
+          "runner_id": 3
+        }
+      ]
+    },
+    "12183": {
+      "pipeline": {
+        "id": 12183,
+        "sha": "3316437467f8b26091ca8d7f7b9d2613d8fafb9b",
+        "ref": "develop",
+        "source": "parent_pipeline",
+        "status": "success",
+        "duration": 2,
+        "queued_duration": 2,
+        "created_at": "2026-11-05T23:46:52.458Z",
+        "started_at": "2026-11-05T23:46:55.025Z",
+        "finished_at": "2026-11-05T23:46:57.863Z"
+      },
+      "children": [],
+      "jobs": [
+        {
+          "id": 28873,
+          "name": "check-plan",
+          "status": "success",
+          "duration": 2.832516,
+          "queued_duration": 2.317525,
+          "runner_id": 2
+        }
+      ]
+    }
+  },
+  "artifact_sizes": {
+    "pipeline_id": 12153,
+    "jobs": [
+      {
+        "id": 28770,
+        "name": "check-images:group-7d36fd84b9ea",
+        "artifacts": [
+          {
+            "type": "archive",
+            "size": 22114
+          },
+          {
+            "type": "metadata",
+            "size": 1173
+          },
+          {
+            "type": "trace",
+            "size": 50235
+          }
+        ]
+      },
+      {
+        "id": 28769,
+        "name": "test-operators:mcap_stats_global/v4.0.1",
+        "artifacts": [
+          {
+            "type": "archive",
+            "size": 4521
+          },
+          {
+            "type": "metadata",
+            "size": 354
+          },
+          {
+            "type": "trace",
+            "size": 18138
+          }
+        ]
+      },
+      {
+        "id": 28768,
+        "name": "test-operators:mcap_read_normalize/v4.0.1",
+        "artifacts": [
+          {
+            "type": "archive",
+            "size": 4541
+          },
+          {
+            "type": "metadata",
+            "size": 356
+          },
+          {
+            "type": "trace",
+            "size": 18218
+          }
+        ]
+      },
+      {
+        "id": 28767,
+        "name": "test-operators:mcap_quality_detect/v4.0.1",
+        "artifacts": [
+          {
+            "type": "archive",
+            "size": 4550
+          },
+          {
+            "type": "metadata",
+            "size": 363
+          },
+          {
+            "type": "trace",
+            "size": 17162
+          }
+        ]
+      },
+      {
+        "id": 28766,
+        "name": "test-operators:mcap_delivery_accepted/v5.0.0",
+        "artifacts": [
+          {
+            "type": "metadata",
+            "size": 352
+          },
+          {
+            "type": "archive",
+            "size": 4581
+          },
+          {
+            "type": "trace",
+            "size": 18276
+          }
+        ]
+      },
+      {
+        "id": 28765,
+        "name": "test-operators:mcap_delivery_accepted/v4.0.1",
+        "artifacts": [
+          {
+            "type": "trace",
+            "size": 16743
+          },
+          {
+            "type": "archive",
+            "size": 4582
+          },
+          {
+            "type": "metadata",
+            "size": 357
+          }
+        ]
+      },
+      {
+        "id": 28764,
+        "name": "check-code",
+        "artifacts": [
+          {
+            "type": "metadata",
+            "size": 386
+          },
+          {
+            "type": "archive",
+            "size": 3163
+          },
+          {
+            "type": "trace",
+            "size": 10298
+          }
+        ]
+      },
+      {
+        "id": 28763,
+        "name": "build-packages",
+        "artifacts": [
+          {
+            "type": "archive",
+            "size": 479710
+          },
+          {
+            "type": "metadata",
+            "size": 658
+          },
+          {
+            "type": "trace",
+            "size": 10070
+          }
+        ]
+      }
+    ]
+  }
+}

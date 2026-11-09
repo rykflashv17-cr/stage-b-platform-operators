@@ -1,0 +1,57 @@
+# 16d quality: left 7 joints, right 7 joints, left/right gripper width (metres).
+# TCP poses remain in MCAP but are outside this provisional quality profile.
+schema:
+  embodiment: jindian_marvin
+  layout: joint_gripper
+  state_dim: 16
+  action_dim: 16
+  alignment_dims: 14
+  joint_indices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+  gripper_indices: [14, 15]
+dataset:
+  embodiment: jindian_marvin
+  robot_type: marvin_bimanual
+  fps: 25
+pipeline:
+  min_episode_length: 120
+  action_zero_epsilon: 1.0e-4
+  stage1_post_zero_grace_frames: 30
+  discard_short_prefix: true
+stage1:
+  stats:
+    recompute: true
+    cache_path: cache/stage1_global_stats.npz
+  exempt_dims:
+    state: [14, 15]
+    action: [14, 15]
+  smoothing: {median_kernel: 5, savgol_window: 11, savgol_polyorder: 3}
+  thresholds: {k_residual: 60.0, k_accel: 60.0, k_jerk: 60.0, percentile_floor: 99.999}
+  hard_limits: {joint_abs_max: 3.5, ee_position_max: 2.0, gripper_max: 1.0}
+  exclusion:
+    frame_removal: {max_cluster_length: 4, min_cluster_length_for_abnormal: 1}
+    episode_discard: {min_cluster_length: 50, min_cluster_frame_jump: 0.25, on_hard_limit_violation: true}
+stage2:
+  action_type: absolute
+  fill_missing_action_eef: false
+  smoothing: {median_kernel: 5, savgol_window: 11, savgol_polyorder: 3}
+  alignment: {max_lag_frames: 5, diff_epsilon: 1.0e-3, min_active_samples: 10}
+  thresholds: {da_per_dim: 0.65, da_episode_mean: 0.65}
+stage3:
+  stats: {recompute: true, cache_path: cache/global_stats.npz, num_histogram_bins: 4096}
+  alpha: 0.35
+  exempt_dims:
+    gripper_state: [14, 15]
+    gripper_action: [14, 15]
+    rpy_state: []
+    rpy_action: []
+  hard_limits:
+    joint: [-3.5, 3.5]
+    ee_xyz: [-2.0, 2.0]
+    gripper: [-0.01, 1.0]
+  exclusion: {min_episode_length: 120}
+stage4:
+  enabled: true
+  max_static_duration_sec: 1.0
+  change_epsilon: 0.0
+stage5:
+  enabled: false

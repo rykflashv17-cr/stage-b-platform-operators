@@ -1,0 +1,53 @@
+contractVersion: '2'
+code: record_quality_gate
+operatorVersion: 1.0.0
+name: 质量门禁
+description: 对一条带质量分数的记录，按有效阈值生成保留结论
+image: data-platform-operators/record_quality_gate:1.0.0
+command:
+- python
+- /app/main.py
+inputs:
+- name: record
+  description: 待判定记录
+  type: object
+  required:
+  - record_id
+  - quality_score
+  properties:
+    record_id:
+      type: string
+      minLength: 1
+    quality_score:
+      type: number
+      minimum: 0
+      maximum: 1
+outputs:
+- name: decision
+  description: record_id 保持输入值；keep 等于 quality_score 大于或等于有效 threshold
+  type: object
+  required:
+  - record_id
+  - keep
+  properties:
+    record_id:
+      type: string
+      minLength: 1
+    keep:
+      type: boolean
+parameters:
+- name: threshold
+  description: 分数达到此阈值时保留记录
+  type: number
+  minimum: 0
+  maximum: 1
+  default: 0.8
+resources:
+  requests:
+    cpu: '1'
+    memory: 1Gi
+  limits:
+    cpu: '2'
+    memory: 2Gi
+stage: quality
+batchMode: none

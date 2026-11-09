@@ -1,0 +1,48 @@
+contractVersion: '2'
+code: mcap_stats_global
+operatorVersion: 4.0.1
+name: MCAP 全局统计
+description: 从归一化批次计算全局统计，输出质检所需的统计包。
+stage: preprocess
+batchMode: all
+image: harbor.striding.internal/data/data-operators/mcap_stats_global:4.0.1
+command:
+- python
+- /app/main.py
+inputs:
+- name: normalized_batch_ref
+  description: 归一化批次 ZIP，包含清单、数值文件和原文件摘要
+  kind: ARTIFACT
+  type: string
+  minLength: 1
+outputs:
+- name: statistics_context
+  description: 统计 ZIP，包含全局统计缓存及计算质检所需的归一化数据
+  kind: ARTIFACT
+  type: string
+  minLength: 1
+parameters:
+- name: source
+  description: 固定数据来源配置
+  type: string
+  enum:
+  - jindian_marvin
+  - abc_130k
+  optional: false
+- name: workers
+  description: 算子内部统计进程数
+  type: integer
+  minimum: 1
+  maximum: 4
+  default: 2
+- name: recompute
+  description: 重新计算全局统计
+  type: boolean
+  default: false
+resources:
+  requests:
+    cpu: '2'
+    memory: 4Gi
+  limits:
+    cpu: '4'
+    memory: 8Gi

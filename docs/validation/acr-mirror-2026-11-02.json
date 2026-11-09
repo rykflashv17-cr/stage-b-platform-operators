@@ -1,0 +1,40 @@
+{
+  "scope": "Harbor to Beijing ACR operator image mirror",
+  "date": "2026-11-02",
+  "checks": {
+    "operator_pytest": {
+      "command": ".venv-v4/bin/python -m pytest -q",
+      "passed": 67
+    },
+    "gitlab_ci_lint": {
+      "valid": true,
+      "warnings": [],
+      "jobs": [
+        "verify-wheels",
+        "verify-images",
+        "publish-candidates",
+        "publish-versions",
+        "mirror-candidates",
+        "mirror-versions"
+      ]
+    },
+    "isolated_oci_registries": {
+      "tool": "ORAS 1.3.0",
+      "tool_binary_sha256": "040e140304b7dbdd9b40dacd798e2303cea44ad84eeb210750afdf15f1dcf8b4",
+      "transport": "TLS, Docker internal network, two registry:2 instances, fixture public token service and VPC endpoint",
+      "tag": "2.0.0",
+      "fixture_manifest_digests": {
+        "mcap_read_normalize": "sha256:474cb230cd65064786156b60ef4fb1f47d87b3a9fabf65d687cd5eac52da3d49",
+        "mcap_stats_global": "sha256:70a2f7a7e30ed793f6d30d8368a102a1116ae95b74d6122adc7ed74c62dffe6b",
+        "mcap_quality_detect": "sha256:70a2f7a7e30ed793f6d30d8368a102a1116ae95b74d6122adc7ed74c62dffe6b",
+        "mcap_delivery_accepted": "sha256:70a2f7a7e30ed793f6d30d8368a102a1116ae95b74d6122adc7ed74c62dffe6b"
+      },
+      "verified": [
+        "source manifest copied by digest to destination tag",
+        "public tag and VPC pull-token readback match source bytes",
+        "each of four tags reused without copying on second invocation"
+      ]
+    }
+  },
+  "live_company_registry_publication": false
+}

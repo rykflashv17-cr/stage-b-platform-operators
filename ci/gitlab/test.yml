@@ -1,0 +1,22 @@
+.check-code:
+  extends: .operator-job
+
+.test-operators:
+  extends: .operator-job
+
+.test-operator-images:
+  extends: .operator-job
+
+.test-pipelines:
+  extends: .operator-job
+
+.check-images:
+  extends: .operator-job
+
+.check-base-images:
+  extends: .operator-job
+
+.test-base-images:
+  extends: .operator-job
+.test-packages:
+  extends: .operator-job

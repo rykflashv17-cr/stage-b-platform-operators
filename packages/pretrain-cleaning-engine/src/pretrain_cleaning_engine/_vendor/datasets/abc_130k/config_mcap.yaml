@@ -1,0 +1,31 @@
+# Raw MCAP+EEF root (discover + load_raw). Stage A 请用 run_config_stage_a_mcap.yaml.
+dataset:
+  name: abc_130k
+  root: /mnt/pfs/datasets/ABC-130k-EEF
+  embodiment: abc_130k
+  fps: 30
+  layout: mcap
+  splits: [train]
+  total_episodes: null
+  input_format: raw
+  index_cache: .cache/episode_index_train_eef.json
+
+pipeline:
+  mode: align
+  num_workers: 16
+  export_workers: 8
+  output_mode: report
+  force_skip_gate: true
+  sample_mode: sequential
+
+quality_config_path: quality.yaml
+
+review_corrections:
+  extrinsic_rotation_correction: {}
+  gripper_closedness_correction:
+    action: null
+    state: null
+
+relative_statistics:
+  enabled: true
+  statistics_horizon_seconds: 2.0

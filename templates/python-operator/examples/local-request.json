@@ -1,0 +1,7 @@
+{
+  "input_files": {
+    "record": [{"logical_key": "record", "fixture_path": "templates/python-operator/examples/inputs/record/valid/sample.yaml"}]
+  },
+  "parameter_overrides": {},
+  "workspace": "build/example-quality-gate"
+}

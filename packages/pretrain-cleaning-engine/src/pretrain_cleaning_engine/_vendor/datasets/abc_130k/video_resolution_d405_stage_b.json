@@ -1,0 +1,173 @@
+{
+ "schema": "video_resolution_plan",
+ "rule": {
+  "scope": "per output camera; all cameras share one base",
+  "short_side": 384,
+  "contract": "EPISODE_CAMERA_GEOMETRY_PREPROCESSING.md §4.1: every published video has short side 384",
+  "stage_a": {
+   "scope": "per output camera; all cameras share one base",
+   "short_side": 480,
+   "larger_sizes": "bilinear resize landscape short side to 480, scaled width rounded to even, center crop to 640x480, square pixels; existing 640x480 bitstream remuxed",
+   "max_discard_ratio": 0.25,
+   "intrinsics": "not applicable (camera_calibration unavailable)"
+  },
+  "stage_b_resize": "Stage A 640x480 → 512x384 (uniform scale 0.8, no crop) when re-encoding at GOP 10 / CRF 18",
+  "max_discard_ratio": 0.25,
+  "intrinsics": "not applicable (camera_calibration unavailable)"
+ },
+ "total_episodes": 90039,
+ "kept_episodes": 90039,
+ "discarded_episodes": 0,
+ "discard_ratio": 0.0,
+ "rounds": [],
+ "cameras": {
+  "camera_reference": {
+   "source_census": {
+    "640x480": 67680,
+    "848x480": 21411,
+    "1280x720": 948
+   },
+   "missing_video": 0,
+   "reference_source_size": "640x480",
+   "base": {
+    "width": 512,
+    "height": 384
+   },
+   "uniform_source": false,
+   "stage_a_base": {
+    "width": 640,
+    "height": 480
+   },
+   "stage_a_transforms": {
+    "640x480": {
+     "scaled_width": 640,
+     "scaled_height": 480,
+     "crop_x": 0,
+     "crop_y": 0,
+     "count": 67680
+    },
+    "848x480": {
+     "scaled_width": 848,
+     "scaled_height": 480,
+     "crop_x": 104,
+     "crop_y": 0,
+     "count": 21411
+    },
+    "1280x720": {
+     "scaled_width": 854,
+     "scaled_height": 480,
+     "crop_x": 107,
+     "crop_y": 0,
+     "count": 948
+    }
+   },
+   "stage_b_transform": {
+    "from": "640x480",
+    "scaled_width": 512,
+    "scaled_height": 384,
+    "crop_x": 0,
+    "crop_y": 0
+   }
+  },
+  "camera_aux_0": {
+   "source_census": {
+    "640x480": 67680,
+    "848x480": 21411,
+    "1280x720": 948
+   },
+   "missing_video": 0,
+   "reference_source_size": "640x480",
+   "base": {
+    "width": 512,
+    "height": 384
+   },
+   "uniform_source": false,
+   "stage_a_base": {
+    "width": 640,
+    "height": 480
+   },
+   "stage_a_transforms": {
+    "640x480": {
+     "scaled_width": 640,
+     "scaled_height": 480,
+     "crop_x": 0,
+     "crop_y": 0,
+     "count": 67680
+    },
+    "848x480": {
+     "scaled_width": 848,
+     "scaled_height": 480,
+     "crop_x": 104,
+     "crop_y": 0,
+     "count": 21411
+    },
+    "1280x720": {
+     "scaled_width": 854,
+     "scaled_height": 480,
+     "crop_x": 107,
+     "crop_y": 0,
+     "count": 948
+    }
+   },
+   "stage_b_transform": {
+    "from": "640x480",
+    "scaled_width": 512,
+    "scaled_height": 384,
+    "crop_x": 0,
+    "crop_y": 0
+   }
+  },
+  "camera_aux_1": {
+   "source_census": {
+    "640x480": 67680,
+    "848x480": 21411,
+    "1280x720": 948
+   },
+   "missing_video": 0,
+   "reference_source_size": "640x480",
+   "base": {
+    "width": 512,
+    "height": 384
+   },
+   "uniform_source": false,
+   "stage_a_base": {
+    "width": 640,
+    "height": 480
+   },
+   "stage_a_transforms": {
+    "640x480": {
+     "scaled_width": 640,
+     "scaled_height": 480,
+     "crop_x": 0,
+     "crop_y": 0,
+     "count": 67680
+    },
+    "848x480": {
+     "scaled_width": 848,
+     "scaled_height": 480,
+     "crop_x": 104,
+     "crop_y": 0,
+     "count": 21411
+    },
+    "1280x720": {
+     "scaled_width": 854,
+     "scaled_height": 480,
+     "crop_x": 107,
+     "crop_y": 0,
+     "count": 948
+    }
+   },
+   "stage_b_transform": {
+    "from": "640x480",
+    "scaled_width": 512,
+    "scaled_height": 384,
+    "crop_x": 0,
+    "crop_y": 0
+   }
+  }
+ },
+ "provenance": "backfilled 2026-09-29 from image_transform/image_transform_details and per-episode source camera sizes in audit/shard-*.json (episodes[].metadata.{top,left,right}_camera_{width,height}); no video or data bytes changed",
+ "source": {
+  "stage_a_review_block": "review/audits/abc_130k/20260929_stageA_D405_repaired/evidence/video_resolution_block.json"
+ }
+}

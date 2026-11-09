@@ -1,0 +1,22 @@
+stages: [plan, build, test, publish-packages, publish-images, mirror-images, publish-manifest]
+
+variables:
+  GIT_DEPTH: "0"
+  UV_PYTHON: "3.12"
+  UV_CACHE_POLICY: pull
+  UV_PYTHON_DOWNLOADS: "never"
+  UV_SYSTEM_CERTS: "true"
+  UV_CACHE_DIR: ".ci-cache/uv"
+  UV_TOOL_DIR: ".ci-cache/tools"
+
+default:
+  tags: [software]
+  cache:
+    key:
+      prefix: "py312-linux-amd64-${CI_COMMIT_REF_PROTECTED}"
+      files: [ci/tooling/uv.lock, ci/build/build-constraints.txt]
+    paths: [.ci-cache/uv/]
+    policy: "$UV_CACHE_POLICY"
+
+.operator-job:
+  script: [sh ci/scripts/job.sh]

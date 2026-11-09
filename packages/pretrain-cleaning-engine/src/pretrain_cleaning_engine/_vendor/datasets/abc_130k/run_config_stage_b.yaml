@@ -1,0 +1,64 @@
+# Stage B: ABC-130k Stage A pseudo_v3 → cleaned aggregated v3
+# Identity P1: no P6, no delay, no gripper affine (already applied in Stage A).
+# extra_info.* passthrough. Set dataset.root / STAGE_A_ROOT to Stage A merge output.
+dataset:
+  name: abc_130k
+  root: /mnt/pfs/datasets/Processed/abc130k_stageA/stage_a_aligned
+  embodiment: abc_130k
+  fps: 30
+  layout: single_root
+  input_format: pseudo_v3
+
+pipeline:
+  mode: clean
+  num_workers: 16
+  export_workers: 16
+  output_mode: filter
+  force_skip_gate: true
+  parallel_videos: true
+  recompute_video_stats: false
+  sample_mode: sequential
+
+media:
+  target_height: 384
+  target_short_side: 384
+  max_keyframe_interval: 10
+  require_camera_top: true
+  normalize_videos: false
+
+episode_geometry:
+  enabled: false
+  module: episode_geometry
+
+speed_align:
+  enabled: false
+
+temporal_align:
+  apply_delay: false
+  mode: stats
+  manual_delay: null
+
+stage2:
+  fill_missing_action_eef: false
+
+review_corrections:
+  extrinsic_rotation_correction: {}
+  gripper_closedness_correction:
+    action: null
+    state: null
+
+quality_config_path: quality_stage_b.yaml
+
+export:
+  layout: aggregated_v3
+  lerobot_version: aggregated_v3
+  renumber_episodes: true
+  keep_all_frames: false
+  v30:
+    aggregate_media: true
+    data_file_size_in_mb: 100
+    video_file_size_in_mb: 200
+
+relative_statistics:
+  enabled: true
+  statistics_horizon_seconds: 2.0

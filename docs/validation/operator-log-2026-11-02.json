@@ -1,0 +1,139 @@
+{
+  "date": "2026-11-02",
+  "scope": "SDK-managed operator.log and operator dependency integration",
+  "branch": "codex/operator-log-archive",
+  "baselines": {
+    "operators": "d8aad00e6416be4b3b5cf2850dfed617f2bdfbc5",
+    "sdk": "8bf1c4758c156563233e73d32dd97f8023033cc2"
+  },
+  "versions": {
+    "sdk": "0.3.0.dev1",
+    "operators": "2.0.0",
+    "template": "1.0.0",
+    "business_contract_changed": false
+  },
+  "verification": [
+    {
+      "name": "SDK full regression",
+      "command": "rtk proxy env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider",
+      "repository": "data-platform-sdk",
+      "passed": 141,
+      "new_logging_cases": 17
+    },
+    {
+      "name": "operator full regression",
+      "command": "rtk proxy env PYTHONDONTWRITEBYTECODE=1 .venv-v4/bin/python -m pytest -q -p no:cacheprovider",
+      "passed": 49,
+      "duration_seconds": 139.43
+    },
+    {
+      "name": "installed wheel entrypoints",
+      "command": "rtk proxy env PYTHONDONTWRITEBYTECODE=1 V4_USE_INSTALLED=1 .venv-v4/bin/python -m pytest -q tests/v4/test_pipeline.py tests/v4/test_template.py -p no:cacheprovider",
+      "passed": 21,
+      "duration_seconds": 121.43
+    },
+    {
+      "name": "declaration examples",
+      "command": "rtk proxy env PYTHONDONTWRITEBYTECODE=1 .venv-v4/bin/python -m ci.check_v4",
+      "operators": 4,
+      "templates": 1,
+      "passed": 30
+    },
+    {
+      "name": "offline wheel build",
+      "command": "rtk proxy env PYTHONDONTWRITEBYTECODE=1 .venv-v4/bin/python -m ci.build_v4 --sdk-project ../data-platform-sdk",
+      "projects": 8
+    },
+    {
+      "name": "SDK source and wheel identity",
+      "source_files": 20,
+      "passed": true
+    },
+    {
+      "name": "third party dependency lock comparison",
+      "locks": 8,
+      "unchanged": true
+    },
+    {
+      "name": "controlled build contexts",
+      "operators": 4,
+      "sdk_version": "0.3.0.dev1",
+      "passed": true
+    }
+  ],
+  "coverage": [
+    "incremental JSON-line log writes",
+    "stderr and file equality after redaction",
+    "concurrent event sequencing",
+    "success, error, cancellation and invalid input",
+    "empty log and custom output directory",
+    "log open, write, close and archive failure isolation",
+    "verified backend upload and immutable replay",
+    "changed or symlinked replay log skipped",
+    "four-process Marvin, missing-frame, ABC and empty-batch pipelines",
+    "template pass, reject and invalid-input paths"
+  ],
+  "wheels_sha256": {
+    "example_quality_gate-1.0.0-py3-none-any.whl": "731b5f512cb777d3a3f884b99abe035e09a470709597c7fc80358cb9146d2af8",
+    "striding_operator_mcap_delivery_accepted-2.0.0-py3-none-any.whl": "7ae3f8dc8065e7f626343d088070751c670f6609b7c073aedb6d15985e48b9ab",
+    "striding_operator_mcap_quality_detect-2.0.0-py3-none-any.whl": "90633a61b3dedc647c362b2f344791b792a3e55412548083649444aa15ab4871",
+    "striding_operator_mcap_read_normalize-2.0.0-py3-none-any.whl": "989b42a598b7e3dd208a77d016af551517fe88b4a32d25953a98864818ec4170",
+    "striding_operator_mcap_stats_global-2.0.0-py3-none-any.whl": "daff99d97ad074529e2137eac0325d1375903887015e6838d8737b964438b2c9",
+    "striding_operator_sdk-0.3.0.dev1-py3-none-any.whl": "82efcb39c043623e24ff868f825bc234fcbe0bf188ea68839f0d381f724947cd",
+    "striding_stage_b_mcap_common-0.2.0-py3-none-any.whl": "a8c91c98e6cccd3c904d671b3fb7d2f5d1dcc7941d730d3c6ae36caba6a1a071",
+    "striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl": "479a96fe93761052c8ca0d3fc063fb5d8b74f40ecd75bd334118431b9acb6be9"
+  },
+  "build_contexts": {
+    "mcap_stats_global": {
+      "build/wheels/striding_operator_sdk-0.3.0.dev1-py3-none-any.whl": "82efcb39c043623e24ff868f825bc234fcbe0bf188ea68839f0d381f724947cd",
+      "build/wheels/striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl": "479a96fe93761052c8ca0d3fc063fb5d8b74f40ecd75bd334118431b9acb6be9",
+      "build/wheels/striding_stage_b_mcap_common-0.2.0-py3-none-any.whl": "a8c91c98e6cccd3c904d671b3fb7d2f5d1dcc7941d730d3c6ae36caba6a1a071",
+      "build/wheels/striding_operator_mcap_stats_global-2.0.0-py3-none-any.whl": "daff99d97ad074529e2137eac0325d1375903887015e6838d8737b964438b2c9",
+      "operators/mcap_stats_global/v2.0.0/pyproject.toml": "1028803c93f139923a20885c7ca9abefe06ffb3b5451bd502c1155c113397f05",
+      "operators/mcap_stats_global/v2.0.0/uv.lock": "0e488be6841d97ca0cf78eaaf266f22991d6c3cf13c41f59bd63a8dde102a2fb",
+      "operators/mcap_stats_global/v2.0.0/Dockerfile": "a7a9b5ba4697543a60933265096072e053ff0ef7ea3ff187081cdd2988bda23b",
+      "operators/mcap_stats_global/v2.0.0/main.py": "54ab2410f8a3ef9defef983324817e1f9037f58a1db2bb04ba5dbb7c86cce287",
+      "operators/mcap_stats_global/v2.0.0/operator.yaml": "4b44ce6c83beb79923f43fb206e17513ca0a66ba01442f5ec76cbac271ca2542"
+    },
+    "mcap_quality_detect": {
+      "build/wheels/striding_operator_sdk-0.3.0.dev1-py3-none-any.whl": "82efcb39c043623e24ff868f825bc234fcbe0bf188ea68839f0d381f724947cd",
+      "build/wheels/striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl": "479a96fe93761052c8ca0d3fc063fb5d8b74f40ecd75bd334118431b9acb6be9",
+      "build/wheels/striding_stage_b_mcap_common-0.2.0-py3-none-any.whl": "a8c91c98e6cccd3c904d671b3fb7d2f5d1dcc7941d730d3c6ae36caba6a1a071",
+      "build/wheels/striding_operator_mcap_quality_detect-2.0.0-py3-none-any.whl": "90633a61b3dedc647c362b2f344791b792a3e55412548083649444aa15ab4871",
+      "operators/mcap_quality_detect/v2.0.0/pyproject.toml": "4302abfe1438131456d8dbd1e0e0ef1558f9f1a5ea4753976e3d0a4d24bf59c5",
+      "operators/mcap_quality_detect/v2.0.0/uv.lock": "af39647c3ebed0c4a54b81e5e6eabc17149aeb376af90c49aa993abc95c31724",
+      "operators/mcap_quality_detect/v2.0.0/Dockerfile": "52f433c2601a6759f13c7539545c571f7a5f67e931288ddd1ecc7ce841a3bfa5",
+      "operators/mcap_quality_detect/v2.0.0/main.py": "a6feaf43bd5df4ba1afecf3a7156e4dbf817eab6a3e9ca4c83a758f246c43d44",
+      "operators/mcap_quality_detect/v2.0.0/operator.yaml": "4bd426c4c93bc8983f15748d81327145cc37af77094350dd8ca952d438728c7b"
+    },
+    "mcap_delivery_accepted": {
+      "build/wheels/striding_operator_sdk-0.3.0.dev1-py3-none-any.whl": "82efcb39c043623e24ff868f825bc234fcbe0bf188ea68839f0d381f724947cd",
+      "build/wheels/striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl": "479a96fe93761052c8ca0d3fc063fb5d8b74f40ecd75bd334118431b9acb6be9",
+      "build/wheels/striding_stage_b_mcap_common-0.2.0-py3-none-any.whl": "a8c91c98e6cccd3c904d671b3fb7d2f5d1dcc7941d730d3c6ae36caba6a1a071",
+      "build/wheels/striding_operator_mcap_delivery_accepted-2.0.0-py3-none-any.whl": "7ae3f8dc8065e7f626343d088070751c670f6609b7c073aedb6d15985e48b9ab",
+      "operators/mcap_delivery_accepted/v2.0.0/pyproject.toml": "bd382ea414bc5950ad1ecda5e5622c8c9dc4666d66afb300a151e79677321b5d",
+      "operators/mcap_delivery_accepted/v2.0.0/uv.lock": "6f3fea1029f446e2285999f79c84cf11eb043352698b14b7efd9f390fa017859",
+      "operators/mcap_delivery_accepted/v2.0.0/Dockerfile": "83673255832c9f661b985b8eaf944042ec5569738ce2d98520c028cd7ee23719",
+      "operators/mcap_delivery_accepted/v2.0.0/main.py": "08a5445ecb7f8403aec57ce8043058ce129aae3190a76e90dca96d976cb89cc9",
+      "operators/mcap_delivery_accepted/v2.0.0/operator.yaml": "23cbc03d5a0b99fc9a3af809f6880873fb274825cca89a2d5437e1ab4b942dfd"
+    },
+    "mcap_read_normalize": {
+      "build/wheels/striding_operator_sdk-0.3.0.dev1-py3-none-any.whl": "82efcb39c043623e24ff868f825bc234fcbe0bf188ea68839f0d381f724947cd",
+      "build/wheels/striding_stage_b_upstream_v4-0.1.0-py3-none-any.whl": "479a96fe93761052c8ca0d3fc063fb5d8b74f40ecd75bd334118431b9acb6be9",
+      "build/wheels/striding_stage_b_mcap_common-0.2.0-py3-none-any.whl": "a8c91c98e6cccd3c904d671b3fb7d2f5d1dcc7941d730d3c6ae36caba6a1a071",
+      "build/wheels/striding_operator_mcap_read_normalize-2.0.0-py3-none-any.whl": "989b42a598b7e3dd208a77d016af551517fe88b4a32d25953a98864818ec4170",
+      "operators/mcap_read_normalize/v2.0.0/pyproject.toml": "336f458ec89477ee3f3251dc1c1e8a0e51f76b8408aeeff7ce125a2cee45da1e",
+      "operators/mcap_read_normalize/v2.0.0/uv.lock": "4d4bccb1bc5c63f965c0d86283abc7b522775301d380a8b78e6a7ce27804c8cf",
+      "operators/mcap_read_normalize/v2.0.0/Dockerfile": "111b4e157e3deb8c6331bd1932ebffcbcf9106008ac3e11ca8802f7fb8e664d5",
+      "operators/mcap_read_normalize/v2.0.0/main.py": "3ae3c08b7c6dd2d16cee8c083c89f1cc3c276e03da141ca34ac7dadb32baeec5",
+      "operators/mcap_read_normalize/v2.0.0/operator.yaml": "03df5b1b325d7378d2a1d0931a46ffe637841f16f8c203102143cf19dfe6273e"
+    }
+  },
+  "boundaries": {
+    "data_platform_modified": false,
+    "operator_business_source_or_schema_modified": false,
+    "container_images_built_or_validated": false,
+    "production_service_integration": false,
+    "registry_or_git_push": false
+  }
+}

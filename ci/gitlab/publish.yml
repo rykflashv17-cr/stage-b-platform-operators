@@ -1,0 +1,13 @@
+.publish-base-images:
+  extends: .operator-job
+
+.publish-operator-images:
+  extends: .operator-job
+
+.mirror-operator-images:
+  extends: .operator-job
+
+.publish-operator-manifest:
+  extends: .operator-job
+.publish-packages:
+  extends: .operator-job

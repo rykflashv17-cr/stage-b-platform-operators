@@ -1,0 +1,35 @@
+# Manual review gate (P2). Status: pending | approved | blocked
+# extrinsic_confidence: pending | trusted | untrusted
+dataset: abc_130k
+updated_at: null
+reviewer: null
+
+items:
+  eef_direction:
+    status: approved
+    notes: >-
+      EEF from ABC-130k-EEF eef_pose.parquet (official FK, row-major 4x4) in
+      left_arm_base. Right-arm base assumed [0,-0.61,0] m identity (D405 cohort,
+      not per-station calibration). No T_cam so P6 does not move EEF into
+      camera_reference@t0. Verify HUD in left_arm_base, not camera frame.
+  gripper_closedness:
+    status: approved
+    notes: >-
+      MCAP aperture 0=closed, 1=open → Dataclean closedness = clip(1-aperture,0,1).
+      Applied in mcap_io.pack_state_action_14d; Stage B must not re-apply affine.
+  camera_naming:
+    status: approved
+    notes: >-
+      /top-camera or /top-left-camera → camera_top → export camera_reference;
+      wrists → camera_aux_0/1. ZED top-right dropped.
+  fps_stable:
+    status: approved
+    notes: >-
+      Source mix ~30 / ~60 Hz. Adapter keeps every 2nd frame on the 60 Hz band
+      so export is 30 Hz. P1 expects dataset.fps=30.
+  extrinsic_confidence:
+    status: untrusted
+    notes: >-
+      源无相机外参（MCAP 只有 CameraCalibration K，没有 T_World_Camera / 手眼）。
+      不导出 extrinsic.*，也不编造 T_Episode_CameraReference=I。
+      有 K 时写入 camera_intrinsics。P6 仍导出 EEF（left_arm_base）。

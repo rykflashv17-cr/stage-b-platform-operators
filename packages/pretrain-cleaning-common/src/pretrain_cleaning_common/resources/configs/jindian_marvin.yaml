@@ -1,0 +1,20 @@
+# Technical test profile: 16d (left 7 + right 7 joints, two gripper widths).
+# Override the input root explicitly. Output contains accepted MCAP copies, normalized intermediates, reports and caches.
+upstream_repo: ../../../../github/SLM_data_curation
+dataset_package: ../dataset_adapters/jindian_marvin
+quality_yaml: ../dataset_adapters/jindian_marvin/quality_stage_b.yaml
+workers: 2
+quality_overrides:
+  stage2_fill_missing_action_eef: false
+source:
+  format: mcap
+  root: /path/to/input-mcaps
+  reference_topics: [/raw/marvin/joint_state]
+  gripper_gap:
+    enabled: true
+    left_topic: /raw/das/left/state
+    right_topic: /raw/das/right/state
+    max_nearest_gap_seconds: 0.6
+output:
+  format: report
+  root: ../../stage_b_v4_outputs/jindian_marvin

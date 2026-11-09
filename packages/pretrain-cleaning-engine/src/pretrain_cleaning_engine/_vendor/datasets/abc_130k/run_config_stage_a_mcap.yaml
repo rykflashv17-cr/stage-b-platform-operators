@@ -1,0 +1,85 @@
+# Stage A oneshot: ABC-130k-EEF (MCAP symlink + eef_pose.parquet) → pseudo_v3.
+# Official FK EEF is authoritative; original ABC-130k MCAP has empty RobotState.pose.
+dataset:
+  name: abc_130k
+  root: /mnt/pfs/datasets/ABC-130k-EEF
+  embodiment: abc_130k
+  fps: 30
+  layout: mcap
+  splits: [train]
+  total_episodes: null
+  input_format: raw
+  index_cache: .cache/episode_index_train_eef.json
+  rebuild_index: false
+
+pipeline:
+  mode: align
+  num_workers: 16
+  export_workers: 8
+  output_mode: filter
+  force_skip_gate: true
+  parallel_videos: true
+  recompute_video_stats: false
+  sample_mode: sequential
+
+media:
+  target_height: 384
+  target_short_side: 384
+  max_keyframe_interval: 10
+  require_camera_top: true
+
+episode_geometry:
+  enabled: true
+  module: episode_geometry
+  episode_frame: "left_arm_base (no camera extrinsic)"
+  video_short_side: 384
+  source_calibration_size: [640, 480]
+  # EEF parquet is already left_arm_base; no T_World_Camera in MCAP.
+  poses_in_episode_frame: true
+  cameras:
+    reference: observation.images.top
+    aux:
+      - observation.images.left_wrist
+      - observation.images.right_wrist
+    mapping:
+      camera_reference: camera_top
+      camera_aux_0: camera_wrist_left
+      camera_aux_1: camera_wrist_right
+    wrist_view: [camera_aux_0, camera_aux_1]
+  extrinsics:
+    source: null
+    reference_is_fixed: true
+
+speed_align:
+  enabled: false
+  target_fps: 30
+
+temporal_align:
+  apply_delay: false
+  mode: stats
+  manual_delay: null
+
+stage2:
+  fill_missing_action_eef: true
+
+review_corrections:
+  extrinsic_rotation_correction: {}
+  gripper_closedness_correction:
+    action: null
+    state: null
+
+quality_config_path: quality.yaml
+
+export:
+  layout: pseudo_v3
+  lerobot_version: pseudo_v3
+  renumber_episodes: true
+  keep_all_frames: true
+  v30:
+    aggregate_media: false
+    data_file_size_in_mb: 100
+    video_file_size_in_mb: 200
+
+relative_statistics:
+  enabled: true
+  statistics_horizon_seconds: 2.0

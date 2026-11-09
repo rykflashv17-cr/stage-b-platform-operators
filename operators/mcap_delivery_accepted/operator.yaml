@@ -1,0 +1,34 @@
+contractVersion: '2'
+code: mcap_delivery_accepted
+operatorVersion: 5.0.0
+name: 合格 MCAP 交付
+description: 校验质检业务结果，并发下载通过项原始 MCAP，打包为含完整清单的 ZIP。
+stage: delivery
+batchMode: all
+delivery:
+  type: archive
+  format: zip
+image: harbor.striding.internal/data/data-operators/mcap_delivery_accepted:5.0.0
+command:
+- python
+- /app/main.py
+inputs:
+- name: batch_quality_result
+  description: 质检结果 ZIP，包含判定、来源映射及质检摘要
+  kind: ARTIFACT
+  type: string
+  minLength: 1
+outputs:
+- name: archive
+  description: 原始 MCAP ZIP，根目录 delivery_manifest.json 完整列出通过项、大小和摘要
+  kind: ARTIFACT
+  type: string
+  minLength: 1
+parameters: []
+resources:
+  requests:
+    cpu: '2'
+    memory: 4Gi
+  limits:
+    cpu: '4'
+    memory: 8Gi
