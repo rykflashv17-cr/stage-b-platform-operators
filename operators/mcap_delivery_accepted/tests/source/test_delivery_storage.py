@@ -1,4 +1,4 @@
-"""B04 6.0.0 acceptance through the real SDK image-fixed entrypoint."""
+"""B04 6.0.1 acceptance through the real SDK image-fixed entrypoint."""
 import hashlib
 import json
 import os

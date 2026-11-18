@@ -1,0 +1,61 @@
+{
+  "scope": "local source business functions and artifact handoffs",
+  "revision_scope": "2026-11-18 joint-target freshness quality gate",
+  "tests_run": 37,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "elapsed_seconds": 2.3839154997840524,
+  "python": "3.12.13",
+  "dependencies": {
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "pandas": "3.1.0",
+    "pyarrow": "26.0.1",
+    "mcap": "1.6.0",
+    "protobuf": "7.36.2",
+    "PyYAML": "6.0.3"
+  },
+  "baseline_revision": "bc0ddfd6a6f90ec028b4966390f9651a4ea21546",
+  "unchanged_algorithm_guards": {
+    "b01_core_ast_matches_baseline_after_import_namespace_change": true,
+    "b02_fit_ast_matches_baseline_except_target_policy_cache_key": true,
+    "b02_target_policy_cache_key_added_exactly_once": true,
+    "b03_numeric_input_masks_ast_matches_baseline": true,
+    "b03_stage1_to_stage4_execution_ast_matches_baseline": true
+  },
+  "allowed_policy_changes": [
+    "B01 preserves sparse joint-target timestamps instead of rejecting nearest gaps above 100ms.",
+    "B02 excludes target-coverage failures before numerical fitting and binds the coverage policy/cache key.",
+    "B03 diagnoses target coverage before S1-S4 and preserves both target and gripper failure reasons."
+  ],
+  "pinned_engine_source_unchanged": true,
+  "real_mcap_fixtures": {
+    "synthetic_marvin": 17,
+    "synthetic_abc_mcap_with_parquet": 1,
+    "user_captures_in_automated_suite": 0
+  },
+  "target_freshness_cases": {
+    "nanosecond_boundaries": [
+      99999999,
+      100000000,
+      100000001
+    ],
+    "directions": [
+      "before first target",
+      "after last target"
+    ],
+    "normalization_and_npz_zip_timestamp_roundtrip": true,
+    "mixed_batch_statistics_and_clean_s1_s4_isolation": true,
+    "all_sparse_batch_has_empty_statistics_and_normal_rejections": true,
+    "combined_target_gripper_reasons_preserved": true,
+    "missing_metadata_and_old_policy_fail_closed": true,
+    "empty_target_topic_remains_read_error": true
+  },
+  "verification_limits": [
+    "Existing numeric environment; not the complete pinned deployment environment.",
+    "Operator SDK startup, registration export and signed storage were not executed.",
+    "New deployment wheels and dependency locks were not rebuilt or validated by this runner.",
+    "Container and production scatter/gather/broadcast were not tested."
+  ]
+}

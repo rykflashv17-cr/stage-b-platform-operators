@@ -72,6 +72,7 @@ class SingleFileQualityTests(unittest.TestCase):
             measurements = {
                 "/raw/das/left/state": np.array([], dtype=np.int64) if gap else times,
                 "/raw/das/right/state": times,
+                "/command/marvin/joint_target": times,
             }
             save_episode(path, NormalizedEpisode(
                 ref, np.full((2, 16), value), np.full((2, 16), value), times,
@@ -114,7 +115,8 @@ class SingleFileQualityTests(unittest.TestCase):
             "episode_index": record.ref.episode_index,
             "fit_status": "excluded" if record.input_error else "included",
             "reason": "input_error" if record.input_error else None,
-        } for record in batch.records), ("/raw/das/left/state", "/raw/das/right/state", 600_000_000))
+        } for record in batch.records), ("/raw/das/left/state", "/raw/das/right/state", 600_000_000),
+            joint_target_gap_policy=("/command/marvin/joint_target", 100_000_000))
         folder = self.folder / f"statistics-{self.serial}"
         save_context(context, folder, metadata)
         write_cohort(folder, cohort)

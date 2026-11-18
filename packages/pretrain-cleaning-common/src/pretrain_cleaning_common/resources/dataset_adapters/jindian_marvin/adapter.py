@@ -131,7 +131,10 @@ class JindianMarvinAdapter:
         if np.any(np.diff(times) < 0):
             raise ValueError("joint state timestamps out of order")
         state_rows = [record for _, record in samples[STATE][::2]]
-        target_rows = _align_nearest(times, samples[TARGET], max_gap_ns=100_000_000, label=TARGET)
+        # Normalize even a sparse command stream. Preserve its original sample
+        # times below so B02 can exclude it from fitting and B03 can issue a
+        # normal quality rejection. A missing/undecodable stream still fails.
+        target_rows = _align_nearest(times, samples[TARGET], max_gap_ns=None, label=TARGET)
         state = np.zeros((len(times), 16), dtype=np.float64)
         action = np.zeros_like(state)
         for col, name in enumerate(JOINT_NAMES):
@@ -168,7 +171,7 @@ class JindianMarvinAdapter:
             "state": state, "action": action, "time_ns": times,
             "valid_measurement_times_ns": {
                 topic: np.asarray([t for t, _ in samples[topic]], dtype=np.int64)
-                for topic in GRIPPER_FIELDS
+                for topic in (*GRIPPER_FIELDS, TARGET)
             },
         }
 

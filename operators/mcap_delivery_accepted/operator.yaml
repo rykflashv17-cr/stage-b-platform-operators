@@ -1,6 +1,6 @@
 contractVersion: '2'
 code: mcap_delivery_accepted
-operatorVersion: 6.0.0
+operatorVersion: 6.0.1
 name: 合格 MCAP 交付
 description: 汇集全批单条检测结果，校验完整性并下载通过项原件，输出 ZIP。
 stage: delivery
@@ -8,7 +8,7 @@ batchMode: all
 delivery:
   type: archive
   format: zip
-image: harbor.striding.internal/data/data-operators/mcap_delivery_accepted:6.0.0
+image: harbor.striding.internal/data/data-operators/mcap_delivery_accepted:6.0.1
 command:
 - python
 - /app/main.py

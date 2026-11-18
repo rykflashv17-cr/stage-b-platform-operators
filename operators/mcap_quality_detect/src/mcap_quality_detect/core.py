@@ -31,7 +31,9 @@ from pretrain_cleaning_common.spec import McapSpec, build_adapter, setup_imports
 from pretrain_cleaning_common.storage import save_episode, load_episode, save_batch
 
 
-from pretrain_cleaning_common.measurement import coverage_policy, measurement_distances
+from pretrain_cleaning_common.measurement import (
+    coverage_policy, measurement_distances, joint_target_policy, joint_target_distances,
+)
 
 
 from pretrain_cleaning_common.filesystem import capture_source_identity, write_json_durable
@@ -68,6 +70,27 @@ def _gripper_gap(episode: NormalizedEpisode, spec: McapSpec) -> tuple[np.ndarray
     }
 
 
+def _joint_target_gap(episode: NormalizedEpisode, spec: McapSpec) -> tuple[np.ndarray, dict]:
+    """Diagnose command coverage using original timestamps, before S1–S4."""
+    config = getattr(spec, "joint_target_gap", None)
+    if config is None:
+        return np.zeros(episode.num_frames, dtype=bool), {"status": "disabled", "detected_ranges": []}
+    distances = joint_target_distances(episode, config)
+    bad = (np.ones(episode.num_frames, dtype=bool) if distances is None
+           else distances > config.max_nearest_gap_ns)
+    ranges = frame_ranges(bad, episode.frame_times_ns)
+    for interval in ranges:
+        start, end = interval["start_frame"], interval["end_frame_exclusive"]
+        interval["max_nearest_gap_seconds"] = float(distances[start:end].max() / 1e9) if distances is not None else None
+    return bad, {
+        "status": "rejected" if bad.any() else "passed",
+        "bad_frames": int(bad.sum()), "topic": config.topic,
+        "max_nearest_gap_seconds": config.max_nearest_gap_ns / 1e9,
+        "max_observed_nearest_gap_seconds": float(distances.max() / 1e9) if distances is not None and len(distances) else None,
+        "detected_ranges": ranges,
+    }
+
+
 def _stage_result(mask: np.ndarray, times: np.ndarray, *, discard: bool = False,
                   reasons=(), **metrics) -> dict:
     return {
@@ -79,21 +102,25 @@ def _stage_result(mask: np.ndarray, times: np.ndarray, *, discard: bool = False,
 
 
 class QualityDetectionOperator:
-    """Gripper coverage and Stage1–4; one failure rejects the whole source MCAP."""
+    """Measurement coverage and Stage1–4; one failure rejects the source MCAP."""
 
     def precheck(self, episode: NormalizedEpisode, spec: McapSpec) -> QualityDecision | None:
         """A coverage failure needs no fitted statistics or numerical scoring."""
         if not episode.num_frames:
             raise ValueError("cannot judge an episode without quality frames")
-        mask, gap = _gripper_gap(episode, spec)
+        target_mask, target_gap = _joint_target_gap(episode, spec)
+        gripper_mask, gripper_gap = _gripper_gap(episode, spec)
+        mask = target_mask | gripper_mask
         if not mask.any():
             return None
-        stages = {"gripper_gap": gap}
-        stages.update({name: {"status": "skipped", "reason": "gripper_gap_rejected_entire_file", "detected_ranges": []}
+        stages = {"joint_target_gap": target_gap, "gripper_gap": gripper_gap}
+        stages.update({name: {"status": "skipped", "reason": "measurement_coverage_rejected_entire_file", "detected_ranges": []}
                        for name in ("s1", "s2", "s3", "s4")})
+        reasons = tuple(f"{name}:invalid_frames={result['bad_frames']}" for name, result in stages.items()
+                        if result["status"] == "rejected")
         return QualityDecision(
             episode.ref, episode.frame_times_ns, mask, True,
-            (f"gripper_gap:invalid_frames={int(mask.sum())}",), stages,
+            reasons, stages,
             episode.source_identity,
         )
 
@@ -126,8 +153,11 @@ class QualityDetectionOperator:
         from robot_data_processing.stages.stage4_static_interval import Stage4Config, run_stage4
 
         n, times = episode.num_frames, episode.frame_times_ns
-        reports = {"gripper_gap": {"status": "passed" if spec.gripper_gap else "disabled",
-                                    "bad_frames": 0, "detected_ranges": []}}
+        # Preserve the successful coverage diagnostics alongside numeric stages.
+        _, target_gap_report = _joint_target_gap(episode, spec)
+        reports = {"joint_target_gap": target_gap_report,
+                   "gripper_gap": {"status": "passed" if spec.gripper_gap else "disabled",
+                                   "bad_frames": 0, "detected_ranges": []}}
         masks, diagnostic_errors = [], {}
 
         def run_s2():
@@ -211,6 +241,8 @@ class QualityDetectionOperator:
         """B03: final judgments and a durable handoff; no source file mutation."""
         if context.coverage_policy != coverage_policy(spec.gripper_gap):
             raise ValueError("coverage policy changed between statistics and quality")
+        if context.joint_target_gap_policy != joint_target_policy(getattr(spec, "joint_target_gap", None)):
+            raise ValueError("joint target coverage policy changed between statistics and quality")
         started = time.perf_counter() if started is None else started
         ordered = []
         for record in context.batch.records:

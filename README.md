@@ -4,18 +4,21 @@
 
 | 算子 | 候选版本 | 每次调用 | 输入 → 输出 |
 |---|---|---|---|
-| B01 MCAP 读取 | 5.0.0 | 单条 | 原始 MCAP → `normalized_episode_ref` |
-| B02 全局统计 | 5.0.0 | 整批 | `normalized_episode_refs` 数组 → `statistics_context` |
-| B03 质量检测 | 5.0.0 | 单条 | 单条 `normalized_episode_ref`＋共享 `statistics_context` → `episode_quality_result` |
-| B04 合格 MCAP 交付 | 6.0.0 | 整批 | 完整 `episode_quality_results` 数组 → 合格原件 ZIP |
+| B01 MCAP 读取 | 5.1.0 | 单条 | 原始 MCAP → `normalized_episode_ref` |
+| B02 全局统计 | 5.1.0 | 整批 | `normalized_episode_refs` 数组 → `statistics_context` |
+| B03 质量检测 | 5.1.0 | 单条 | 单条 `normalized_episode_ref`＋共享 `statistics_context` → `episode_quality_result` |
+| B04 合格 MCAP 交付 | 6.0.1 | 整批 | 完整 `episode_quality_results` 数组 → 合格原件 ZIP |
 
-ABC 的一个 Episode 仍需 MCAP 与同目录、同来源的 Parquet。B03 使用 B02 对完整选定批次生成的统计，清洗规则和固定引擎未修改。
+本轮共享包候选为 `pretrain-cleaning-common 0.6.0`。Marvin 的 target 最近邻距离严格大于 0.1 秒时，B01 保留原 target 时间戳继续归一化，B02 排除该记录、不纳入统计拟合，B03 以 `joint_target_gap` 正常拒绝整条 MCAP 并记录原因和区间，跳过 S1–S4；夹爪缺测检查同时保留，可联合报告。恰好 0.1 秒不因这条规则拒绝。本轮只迁移可解析但稀疏的 target 流；完全没有关节目标指令，以及文件、解码、关键字段等真正输入错误，仍是执行错误。
 
-**验证状态：** [31 项业务测试通过](docs/validation/single-file-20261109.json)。依赖锁尚待更新，完整 SDK 入口、注册转换、镜像和真实平台编排尚未验收。本仓库是源码候选，不代表 GitLab 已合入、算子已注册或镜像已发布。
+ABC 的一个 Episode 仍需 MCAP 与同目录、同来源的 Parquet，本轮保持其原有行为。S1–S4 数值规则及固定引擎未改；B04 仅随共享包依赖升级，交付方式不变。
+
+**验证状态：** 本轮 [37 项本地业务回归通过](docs/validation/single-file-target-coverage-20261118.json)，另有 1 条真实用户样本完成本地业务全链抽查。[2026-11-09 的 31 项结果](docs/validation/single-file-20261109.json)保留为上一轮历史证据。`uv.lock` 未重建，正式 SDK 入口、注册转换、wheel、Docker 镜像和真实平台编排仍未验收。本仓库是源码候选，不代表 GitLab 已合入、算子已注册或镜像已发布。
 
 - [调用方式、输入输出与剩余交付步骤](docs/SINGLE_FILE_PROCESSING.md)
-- [本地业务测试入口](tools/run_single_file_business_tests.py)
-- [本次候选版本说明](docs/releases/operators/)
+- [本轮本地业务测试入口](tools/run_single_file_business_tests.py)
+- [共享包 0.6.0 候选说明](docs/releases/packages/pretrain-cleaning-common/0.6.0.md)
+- 本轮算子候选说明：[B01 5.1.0](docs/releases/operators/mcap_read_normalize/5.1.0.md)、[B02 5.1.0](docs/releases/operators/mcap_stats_global/5.1.0.md)、[B03 5.1.0](docs/releases/operators/mcap_quality_detect/5.1.0.md)、[B04 6.0.1](docs/releases/operators/mcap_delivery_accepted/6.0.1.md)
 
 ---
 

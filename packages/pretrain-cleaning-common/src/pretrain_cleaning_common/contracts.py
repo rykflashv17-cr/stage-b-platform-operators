@@ -135,6 +135,7 @@ class StatisticsContext:
     fit_records: tuple[dict[str, Any], ...]
     coverage_policy: tuple[str, str, int] | None
     error: str | None = None
+    joint_target_gap_policy: tuple[str, int] | None = None
 
     def __post_init__(self) -> None:
         if self.status not in {"ready", "empty", "failed"}:

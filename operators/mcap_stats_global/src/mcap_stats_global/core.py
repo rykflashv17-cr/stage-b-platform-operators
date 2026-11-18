@@ -31,7 +31,9 @@ from pretrain_cleaning_common.spec import McapSpec, build_adapter, setup_imports
 from pretrain_cleaning_common.storage import save_episode, load_episode, save_batch
 
 
-from pretrain_cleaning_common.measurement import coverage_policy, measurement_distances
+from pretrain_cleaning_common.measurement import (
+    coverage_policy, measurement_distances, joint_target_policy, joint_target_distances,
+)
 
 
 from pretrain_cleaning_common.filesystem import capture_source_identity, write_json_durable
@@ -74,7 +76,12 @@ class GlobalStatsOperator:
                 try:
                     episode = load_episode(record)
                     # This is statistical input admission, not a quality verdict.
-                    if spec.gripper_gap is not None:
+                    target_gap = getattr(spec, "joint_target_gap", None)
+                    if target_gap is not None:
+                        distance = joint_target_distances(episode, target_gap)
+                        if distance is None or np.any(distance > target_gap.max_nearest_gap_ns):
+                            reason = "joint target coverage insufficient for statistics"
+                    if reason is None and spec.gripper_gap is not None:
                         for _, distance in measurement_distances(episode, spec.gripper_gap).values():
                             if distance is None or np.any(distance > spec.gripper_gap.max_nearest_gap_ns):
                                 reason = "measurement coverage insufficient for statistics"
@@ -101,10 +108,13 @@ class GlobalStatsOperator:
             except Exception as exc:
                 error = f"{type(exc).__name__}: {exc}"
                 status = "failed"
-        context = StatisticsContext(batch, status, statistics, tuple(fit_records), coverage_policy(spec.gripper_gap), error)
+        target_policy = joint_target_policy(getattr(spec, "joint_target_gap", None))
+        context = StatisticsContext(batch, status, statistics, tuple(fit_records),
+                                    coverage_policy(spec.gripper_gap), error, target_policy)
         write_json_durable(spec.output_root / "statistics_context.json", {
             "status": status, "error": error, "normalized_manifest": str(batch.manifest_path),
             "coverage_policy": context.coverage_policy, "fit_records": fit_records,
+            "joint_target_gap_policy": context.joint_target_gap_policy,
             "included_episodes": len(eligible), "excluded_episodes": len(batch.records) - len(eligible),
         })
         return context
@@ -134,6 +144,7 @@ class GlobalStatsOperator:
             fingerprint.update(str(spec.input_root.resolve()).encode())
             fingerprint.update(spec.quality_yaml.read_bytes())
             fingerprint.update(repr(spec.gripper_gap).encode())
+            fingerprint.update(repr(getattr(spec, "joint_target_gap", None)).encode())
             fingerprint.update(batch.manifest_path.read_bytes())
             for record in records:
                 with record.data_path.open("rb") as stream:

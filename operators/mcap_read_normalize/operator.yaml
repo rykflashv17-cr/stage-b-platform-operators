@@ -1,11 +1,11 @@
 contractVersion: '2'
 code: mcap_read_normalize
-operatorVersion: 5.0.0
+operatorVersion: 5.1.0
 name: MCAP 标准读取
-description: 每次读取一条 MCAP 记录，输出归一化数据及冻结来源凭据。
+description: 每次读取一条 MCAP，保留归一化数据、原始测量时间戳及冻结来源凭据。
 stage: ingest
 batchMode: none
-image: harbor.striding.internal/data/data-operators/mcap_read_normalize:5.0.0
+image: harbor.striding.internal/data/data-operators/mcap_read_normalize:5.1.0
 command:
 - python
 - /app/main.py

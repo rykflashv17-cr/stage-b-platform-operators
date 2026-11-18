@@ -152,6 +152,7 @@ def save_context(context, directory, metadata):
         if fingerprint.exists(): shutil.copyfile(fingerprint,cache / fingerprint.name)
     payload={"format":"statistics_context_v1","status":context.status,"error":context.error,
              "fit_records":context.fit_records,"coverage_policy":context.coverage_policy,
+             "joint_target_gap_policy":context.joint_target_gap_policy,
              "alignment_lag":context.statistics.alignment_lag if context.statistics else None,
              "has_alignment_stats":context.statistics is not None and context.statistics.alignment_stats is not None,
              "files":_files(directory)}
@@ -215,7 +216,13 @@ def load_context(directory, source):
     require(policy is None or isinstance(policy, list) and len(policy) == 3
             and all(isinstance(topic, str) and topic for topic in policy[:2]) and policy[0] != policy[1]
             and type(policy[2]) is int and 0 <= policy[2] < 2**63, "invalid statistics coverage policy")
-    return StatisticsContext(batch,status,stats,tuple(fits),tuple(policy) if policy is not None else None,payload["error"]),metadata
+    target_policy = payload.get("joint_target_gap_policy")
+    require(target_policy is None or isinstance(target_policy, list) and len(target_policy) == 2
+            and isinstance(target_policy[0], str) and target_policy[0]
+            and type(target_policy[1]) is int and 0 < target_policy[1] < 2**63,
+            "invalid statistics joint target gap policy")
+    return StatisticsContext(batch,status,stats,tuple(fits),tuple(policy) if policy is not None else None,
+                             payload["error"],tuple(target_policy) if target_policy is not None else None),metadata
 
 
 def validate_source_ref(ref):

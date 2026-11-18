@@ -1,11 +1,11 @@
 contractVersion: '2'
 code: mcap_quality_detect
-operatorVersion: 5.0.0
+operatorVersion: 5.1.0
 name: MCAP 质量检测
-description: 依据共享全局统计，每次检测一条 MCAP，输出单条判定与标准质检报告。
+description: 每次检测一条 MCAP；Marvin target 或夹爪覆盖不足时正常拒绝，其余依共享统计执行 S1–S4。
 stage: quality
 batchMode: none
-image: harbor.striding.internal/data/data-operators/mcap_quality_detect:5.0.0
+image: harbor.striding.internal/data/data-operators/mcap_quality_detect:5.1.0
 command:
 - python
 - /app/main.py

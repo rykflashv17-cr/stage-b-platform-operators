@@ -15,6 +15,10 @@ source:
     left_topic: /raw/das/left/state
     right_topic: /raw/das/right/state
     max_nearest_gap_seconds: 0.6
+  joint_target_gap:
+    enabled: true
+    topic: /command/marvin/joint_target
+    max_nearest_gap_seconds: 0.1
 output:
   format: report
   root: ../../stage_b_v4_outputs/jindian_marvin

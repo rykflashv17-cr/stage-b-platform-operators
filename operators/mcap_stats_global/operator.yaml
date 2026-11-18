@@ -1,11 +1,11 @@
 contractVersion: '2'
 code: mcap_stats_global
-operatorVersion: 5.0.0
+operatorVersion: 5.1.0
 name: MCAP 全局统计
-description: 汇集逐条归一化结果，拟合整批共享统计并绑定完整成员清单。
+description: 汇集逐条归一化结果，排除测量覆盖不足项后拟合共享统计，保留完整成员清单。
 stage: preprocess
 batchMode: all
-image: harbor.striding.internal/data/data-operators/mcap_stats_global:5.0.0
+image: harbor.striding.internal/data/data-operators/mcap_stats_global:5.1.0
 command:
 - python
 - /app/main.py

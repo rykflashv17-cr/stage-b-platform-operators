@@ -5,7 +5,7 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
     "striding-operator-sdk==0.3.0.dev9",
     "pretrain-cleaning-engine==0.1.0",
-    "pretrain-cleaning-common==0.5.0",
+    "pretrain-cleaning-common==0.6.0",
 ]
 
 [tool.uv]
@@ -28,7 +28,7 @@ norecursedirs = ["fixtures", ".venv", ".venv-*", "_vendor"]
 [tool.uv.sources]
 striding-operator-sdk = { path = "build/wheels/striding_operator_sdk-0.3.0.dev9-py3-none-any.whl" }
 pretrain-cleaning-engine = { path = "build/wheels/pretrain_cleaning_engine-0.1.0-py3-none-any.whl" }
-pretrain-cleaning-common = { path = "build/wheels/pretrain_cleaning_common-0.5.0-py3-none-any.whl" }
+pretrain-cleaning-common = { path = "build/wheels/pretrain_cleaning_common-0.6.0-py3-none-any.whl" }
 
 [[tool.uv.index]]
 name = "nexus"

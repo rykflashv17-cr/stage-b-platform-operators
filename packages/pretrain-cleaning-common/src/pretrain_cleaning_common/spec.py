@@ -25,6 +25,12 @@ class GripperGapConfig:
 
 
 @dataclass(frozen=True)
+class JointTargetGapConfig:
+    topic: str
+    max_nearest_gap_ns: int
+
+
+@dataclass(frozen=True)
 class McapSpec:
     repo_root: Path
     package_dir: Path
@@ -37,6 +43,7 @@ class McapSpec:
     workers: int
     quality_overrides: dict[str, Any] = field(default_factory=dict)
     gripper_gap: GripperGapConfig | None = None
+    joint_target_gap: JointTargetGapConfig | None = None
 
 
 def _absolute(base: Path, value: str | Path) -> Path:
@@ -92,11 +99,24 @@ def load_spec(
         if not left or not right or left == right:
             raise ValueError("source.gripper_gap needs two distinct nonempty topics")
         gripper_gap = GripperGapConfig(left, right, round(seconds * 1e9))
+    target_raw = source.get("joint_target_gap")
+    joint_target_gap = None
+    if target_raw is not None and target_raw.get("enabled", True):
+        seconds = float(target_raw["max_nearest_gap_seconds"])
+        if not math.isfinite(seconds) or seconds <= 0:
+            raise ValueError("source.joint_target_gap.max_nearest_gap_seconds must be positive and finite")
+        gap_ns = round(seconds * 1e9)
+        if not 0 < gap_ns < 2**63:
+            raise ValueError("source.joint_target_gap.max_nearest_gap_seconds must fit positive int64 nanoseconds")
+        topic = target_raw["topic"]
+        if not isinstance(topic, str) or not topic:
+            raise ValueError("source.joint_target_gap.topic must be a nonempty string")
+        joint_target_gap = JointTargetGapConfig(topic, gap_ns)
     return McapSpec(
         repo, package, quality, root, out, reference,
         tuple(source.get("static_topics") or ()),
         tuple(source.get("splits") or ("train",)), workers,
-        dict(raw.get("quality_overrides") or {}), gripper_gap,
+        dict(raw.get("quality_overrides") or {}), gripper_gap, joint_target_gap,
     )
 
 
